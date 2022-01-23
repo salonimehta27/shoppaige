@@ -4,10 +4,17 @@ class User < ApplicationRecord
   has_secure_password
   has_many :products
 
+  validate :must_have_a_role, on: :update
 
   private 
     def assign_default_role
       self.add_role(:buyer) if self.roles.blank?
+    end
+
+    def must_have_a_role
+      unless roles.any?
+        errors.add(:roles, "must have atleast one role")
+      end
     end
 
 end
