@@ -3,6 +3,7 @@ class User < ApplicationRecord
   rolify
   has_secure_password
   has_many :products
+  has_one :cart
 
   validate :must_have_a_role, on: :update
 
