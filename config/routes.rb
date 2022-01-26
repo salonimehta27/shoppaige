@@ -5,6 +5,10 @@ Rails.application.routes.draw do
   get 'sessions/destroy'
   resources :products
   resources :users
+  post "/signin", to:"sessions#create"
+  post "/signup", to:"users#create"
+  delete "/signout", to:"sessions#destroy"
+  get "/me", to: "users#show" 
   # root to: "home#index"
 
   # Routing logic: fallback requests for React Router.
