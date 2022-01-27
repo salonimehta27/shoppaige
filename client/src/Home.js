@@ -4,7 +4,7 @@ import Products from "./features/products/Products"
 function Home() {
     return (
         <div>
-            <Products/>
+            <Products />
         </div>
     )
 }

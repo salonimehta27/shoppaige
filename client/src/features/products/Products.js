@@ -21,9 +21,14 @@ function Products() {
             }
         })
     },[])
+
     return (
         <Container style={{marginTop:"25px"}}>
-            <DisplayProduct products={products}/>
+            {products.map(product=>{
+             return   <>
+            {product.map(p=><DisplayProduct product={p}/>)}
+            </>
+            })}      
         </Container>
         
     )

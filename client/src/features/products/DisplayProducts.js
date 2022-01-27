@@ -1,17 +1,33 @@
-import React from 'react'
+import React,{useState} from 'react'
 import {Card,Button} from "react-bootstrap"
-
-function DisplayProducts() {
+import {useNavigate} from "react-router-dom"
+function DisplayProducts({product,setCurrentProduct}) {
+    const[errors,setErrors]=useState([])
+    const navigate=useNavigate()
+    function handleProductPage(){
+        navigate(`/products/${product.id}`)
+        fetch(`/products/${product.id}`)
+        .then(res=>{
+            if(res.ok){
+                res.json().then(data=>setCurrentProduct(data))
+            }
+            else{
+                res.json().then(err=>setErrors(err))
+            }
+        })
+        
+    }
+   
     return (
         <Card style={{ width: '18rem' }}>
         <Card.Img variant="top" src="holder.js/100px180" />
         <Card.Body>
-          <Card.Title>Product Name</Card.Title>
+          <Card.Title>{product.name}</Card.Title>
           <Card.Text>
-            Some quick example text to build on the card title and make up the bulk of
-            the card's content.
+            {product.description}
           </Card.Text>
           <Button variant="primary">Add to cart</Button>
+          <Button variant="primary" onClick={handleProductPage}>product details</Button>
         </Card.Body>
       </Card>
     )
