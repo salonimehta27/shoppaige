@@ -5,7 +5,7 @@ import { productAdded } from './productsSlice'
 import {useSelector,useDispatch} from "react-redux"
 import {useEffect,useState} from "react"
 
-function Products() {
+function Products({currentProduct,setCurrentProduct}) {
     const dispatch=useDispatch()
     const[errors,setErrors]=useState([])
     const products=useSelector(state=>state.products.entities)
@@ -26,7 +26,7 @@ function Products() {
         <Container style={{marginTop:"25px"}}>
             {products.map(product=>{
              return   <>
-            {product.map(p=><DisplayProduct product={p}/>)}
+            {product.map(p=><DisplayProduct product={p} setCurrentProduct={setCurrentProduct}/>)}
             </>
             })}      
         </Container>

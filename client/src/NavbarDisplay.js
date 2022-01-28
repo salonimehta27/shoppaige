@@ -21,8 +21,10 @@ function NavbarDisplay({currentUser,setUser,itemCount}) {
           <Nav.Link href="/">Home</Nav.Link>
           {currentUser!==null?<Nav.Link onClick={handleSignout}>Signout</Nav.Link>:<Nav.Link href="/signin">Signin</Nav.Link>}
           {/* <Nav.Link href="/signin">Signin</Nav.Link> */}
-          <Nav.Link href="/signup">Signup</Nav.Link>
-          
+          {/* <Nav.Link href="/signup">Signup</Nav.Link> */}
+          <Nav.Link href="/addProduct">Become a seller</Nav.Link>
+          <Nav.Link href={`/yourListings/${currentUser.id}`}>Your product listings</Nav.Link>
+          {/* when the user becomes a seller then they can see the list of just their products in a tab */}
         </Nav>
         <Badge color="secondary" badgeContent={1}>
           <ShoppingCartIcon style={{color:"white"}} />{" "}

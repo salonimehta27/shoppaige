@@ -15,6 +15,13 @@ class ProductPolicy < ApplicationPolicy
     user.has_role? :seller
   end
 
+  def update?
+    user.has_role? :seller
+  end
+
+  def edit?
+    update?
+  end
   def show?
     true
   end

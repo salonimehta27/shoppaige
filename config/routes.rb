@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   post "/signup", to:"users#create"
   delete "/signout", to:"sessions#destroy"
   get "/me", to: "users#show" 
+  get "/userProducts/:user_id",to: "products#user_products"
   # root to: "home#index"
 
   # Routing logic: fallback requests for React Router.

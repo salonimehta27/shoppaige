@@ -1,10 +1,10 @@
 import React from 'react'
 import Products from "./features/products/Products"
 
-function Home() {
+function Home({currentProduct,setCurrentProduct}) {
     return (
         <div>
-            <Products />
+            <Products currentProduct={currentProduct} setCurrentProduct={setCurrentProduct}/>
         </div>
     )
 }

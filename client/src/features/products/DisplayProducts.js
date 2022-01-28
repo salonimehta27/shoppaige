@@ -1,21 +1,13 @@
 import React,{useState} from 'react'
 import {Card,Button} from "react-bootstrap"
 import {useNavigate} from "react-router-dom"
+import ProductDetails from './ProductDetails'
 function DisplayProducts({product,setCurrentProduct}) {
     const[errors,setErrors]=useState([])
     const navigate=useNavigate()
     function handleProductPage(){
         navigate(`/products/${product.id}`)
-        fetch(`/products/${product.id}`)
-        .then(res=>{
-            if(res.ok){
-                res.json().then(data=>setCurrentProduct(data))
-            }
-            else{
-                res.json().then(err=>setErrors(err))
-            }
-        })
-        
+        setCurrentProduct(product)
     }
    
     return (

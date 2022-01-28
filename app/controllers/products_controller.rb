@@ -1,14 +1,19 @@
 class ProductsController < ApplicationController
-
+ skip_before_action :authorize, only: [:index,:show]
     def index 
         products=Product.all
-        authorize products
         render json: products
     end
 
     def show 
         product=Product.find_by(id:params[:id])
         render json: product, status: :ok
+    end
+
+    def user_products
+        # byebug
+        products=Product.find_by(user_id:params[:user_id])
+        render json: products
     end
 
     def create 
@@ -23,6 +28,7 @@ class ProductsController < ApplicationController
 
     def update 
         product=Product.find_by(id:params[:id])
+        authorize user
         if product.update(product_params)
             current_user.add_role :seller, product
         end
@@ -31,6 +37,7 @@ class ProductsController < ApplicationController
 
     def destroy
         product=Product.find_by(id:params[:id])
+        authorize user
         product.delete
         head :no_content
     end
