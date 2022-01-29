@@ -1,7 +1,11 @@
 import {Button,Form,Container} from "react-bootstrap"
 import {useState} from "react"
 import {useNavigate} from 'react-router-dom'
+import {useSelector,useDispatch} from "react-redux"
+import {currentUserAdded} from "./signinSlice"
+
 function Signin({onSignin}) {
+    const dispatch=useDispatch()
 const[email,setEmail]=useState("")
 const[password,setPassword]=useState("")
 const[errors,setErrors]=useState([])
@@ -20,7 +24,7 @@ const navigate=useNavigate();
         }).then(r=>{
             if(r.ok){
                 r.json().then((user=>{
-                    onSignin(user)
+                    dispatch(currentUserAdded(user))
                     setEmail("")
                     setPassword("")
                     navigate("/")

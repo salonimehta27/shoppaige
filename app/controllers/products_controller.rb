@@ -12,7 +12,7 @@ class ProductsController < ApplicationController
 
     def user_products
         # byebug
-        products=Product.find_by(user_id:params[:user_id])
+        products=Product.where(user_id:params[:user_id]).to_a
         render json: products
     end
 

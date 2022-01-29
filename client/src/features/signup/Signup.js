@@ -2,7 +2,11 @@ import React from 'react'
 import { Container, Form } from 'react-bootstrap'
 import {useState} from "react"
 import {useNavigate} from 'react-router-dom'
+import {useDispatch,useSelector} from "react-redux"
+import {currentUserAdded} from "./signinSlice"
+
 function Signup({setCurrentUser}) {
+    const dispatch=useDispatch()
 const[signupForm,setSignupForm]=useState({
     first_name:"",
     last_name:"",
@@ -29,7 +33,7 @@ function handleSubmit(e){
         })}).then(r=>{
             if(r.ok){
                 r.json().then(user=>{
-                    setCurrentUser(user)
+                    dispatch(currentUserAdded(user))
                     navigate("/")
                     setSignupForm({
                         first_name:"",

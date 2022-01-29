@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-  skip_before_action :authorize, only: :create
+  skip_before_action :authorize, only: [:create,:destroy]
   
   
   def create
@@ -24,6 +24,7 @@ class SessionsController < ApplicationController
 
   def destroy
     session.delete :user_id
+    # session.delete :cart_id
     head :no_content
   end
 end

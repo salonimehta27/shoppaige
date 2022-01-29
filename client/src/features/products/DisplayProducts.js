@@ -1,5 +1,5 @@
 import React,{useState} from 'react'
-import {Card,Button} from "react-bootstrap"
+import {Card,Button,Col,Row} from "react-bootstrap"
 import {useNavigate} from "react-router-dom"
 import ProductDetails from './ProductDetails'
 function DisplayProducts({product,setCurrentProduct}) {
@@ -11,7 +11,8 @@ function DisplayProducts({product,setCurrentProduct}) {
     }
    
     return (
-        <Card style={{ width: '18rem' }}>
+        <Row>
+        <Card style={{ width: '18rem'}}>
         <Card.Img variant="top" src="holder.js/100px180" />
         <Card.Body>
           <Card.Title>{product.name}</Card.Title>
@@ -22,6 +23,7 @@ function DisplayProducts({product,setCurrentProduct}) {
           <Button variant="primary" onClick={handleProductPage}>product details</Button>
         </Card.Body>
       </Card>
+      </Row>
     )
 }
 
