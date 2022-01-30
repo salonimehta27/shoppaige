@@ -1,5 +1,6 @@
 import React from 'react'
 import {Form} from "react-bootstrap"
+import Images from '../images/Images'
 
 function AddProduct() {
     return (
@@ -13,11 +14,12 @@ function AddProduct() {
         <Form.Label>Product Description</Form.Label>
         <Form.Control as="textarea" rows={3} />
             </Form.Group>
-        <Form.Group controlId="formFileMultiple" className="mb-3">
+        {/* <Form.Group controlId="formFileMultiple" className="mb-3">
         <Form.Label>Multiple files input example</Form.Label>
         <Form.Control type="file" multiple />
-        </Form.Group>
-        <button className="btn btn-outline-primary">Upload</button>
+        </Form.Group> */}
+        <Images/>
+        {/* <button className="btn btn-outline-primary">Upload</button> */}
       </div>
     )
 }
