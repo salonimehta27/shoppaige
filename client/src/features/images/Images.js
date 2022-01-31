@@ -1,39 +1,93 @@
-import React ,{useState} from 'react';
+import React , {useState} from 'react';
+import { Form } from 'react-bootstrap';
+import {uploadFile} from 'react-s3';
 
-import {uploadFile} from "react-s3"
-import {Form} from "react-bootstrap"
 
-function Images() {
-    const config = {
-        bucketName: 'shoppaige ',
-        dirName: 'Enter Folder Name ', /* optional */
-        region: 'us-east-1',
-        accessKeyId: 'AKIA5JDKYRPA5ERHEL7N',
-        secretAccessKey: '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',
-        s3Url:'https://shoppaige.s3.amazonaws.com/',
+const Images = () => {
+  const S3_BUCKET ='shoppaige';
+  const REGION ='us-east-1';
+  
+  
+  const config = {
+      bucketName: S3_BUCKET,
+      dirName: 'images',
+      region: REGION,
+      accessKeyId: 'AKIA5JDKYRPA5ERHEL7N',
+      secretAccessKey: '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',
+      s3Url:'http://shoppaige.s3-website-us-east-1.amazonaws.com'
   }
+    const [selectedFile, setSelectedFile] = useState(null);
+    const[imageUrl,setImageUrl]=useState(null)
 
-function upload(e){
-  // debugger
-  // console.log(e.target.files)
-  uploadFile(e.target.files[0],config)
-  .then((data)=>console.log(data.location))
-  .catch((err)=>alert(err))
+    // const handleFileInput = (e) => {
+    //   // console.log(e.target.files[0])
+    //     ;
+    // }
+
+    function upload(e){
+      // setSelectedFile(e.target.files[0])
+       uploadFile(e.target.files[0], config)
+            .then(data => {
+              console.log(data.location)
+              setImageUrl(data.location)
+            })
+            .catch(err => console.log(err))
+    }
+
+    return <div>
+        <Form.Group controlId="formFileMultiple" className="mb-3">
+        <Form.Label>Multiple files input example</Form.Label>
+        <Form.Control type="file" multiple onChange={upload} />
+        </Form.Group>
+        {/* <div>React S3 File Upload</div>
+        <input type="file" onChange={upload}/> */}
+        {/* <button onClick={() => handleUpload(selectedFile)}> Upload to S3</button> */}
+        {/* {imageUrl!==null&&<img src={imageUrl} alt="image"></img>} */}
+    </div>
 }
-  return (
-    <>
-    <h3>Upload</h3>
-    <input type="file" onChange={upload}/>
-    </>
-    // <Form.Group controlId="formFileMultiple" className="mb-3">
-    //     <Form.Label>Multiple files input example</Form.Label>
-    //     <Form.Control type="file" multiple onChange={upload} />
-    //     </Form.Group>
-  )
+export default Images
 
-}
 
-export default Images;
+
+
+
+
+
+// import React ,{useState} from 'react';
+
+// import {uploadFile} from "react-s3"
+// import {Form} from "react-bootstrap"
+
+// function Images() {
+//     let config = {
+//         bucketName: 'shoppaige2',/* optional */
+//         region: 'us-west-1',
+//         accessKeyId: 'AKIA5JDKYRPA5ERHEL7N',
+//         secretAccessKey: '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',
+//         s3Url:'https://shoppaige2.s3.amazonaws.com/',
+//   }
+
+// function upload(e){
+//   // debugger
+//   // console.log(e.target.files)
+//   uploadFile(e.target.files[0],config)
+//   .then((data)=>console.log(data.location))
+//   .catch((err)=>console.log(err))
+// }
+//   return (
+//     <>
+//     <h3>Upload</h3>
+//     <input type="file" onChange={upload}/>
+//     </>
+//     // <Form.Group controlId="formFileMultiple" className="mb-3">
+//     //     <Form.Label>Multiple files input example</Form.Label>
+//     //     <Form.Control type="file" multiple onChange={upload} />
+//     //     </Form.Group>
+//   )
+
+// }
+
+// export default Images;
 // import AWS from 'aws-sdk'
 
 // const S3_BUCKET ='shoppaige';

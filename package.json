@@ -11,6 +11,7 @@
     "heroku-postbuild": "npm run clean && npm run build && npm run deploy"
   },
   "dependencies": {
+    "cors-anywhere": "^0.4.4",
     "react-redux": "^7.2.6"
   }
 }
