@@ -16,7 +16,7 @@ const Images = () => {
       secretAccessKey: '2YoDFUGMbD8ArIuYULU1DznvHU547+ypnwU2DrTL',
       s3Url:'http://shoppaige.s3-website-us-east-1.amazonaws.com'
   }
-    const [selectedFile, setSelectedFile] = useState(null);
+    // const [selectedFile, setSelectedFile] = useState(null);
     const[imageUrl,setImageUrl]=useState(null)
 
     // const handleFileInput = (e) => {
