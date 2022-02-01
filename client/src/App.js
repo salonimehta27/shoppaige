@@ -12,10 +12,16 @@ import ProductDetails from './features/products/ProductDetails';
 import AddProduct from './features/products/AddProduct';
 import Searchbar from './Searchbar';
 import CurrentUserListings from './features/products/CurrentUserListings';
+import StripeContainer from './StripeContainer';
+
 
 function App() {
   // const[currentUser,setCurrentUser]=useState(null)
-
+  //passing the client secret obtained from the server
+  // const options={
+  //   clientSecret:
+  // }
+ 
   const currentUser=useSelector((state)=>state.currentUser.entities)
   const dispatch=useDispatch()
   const[currentProduct,setCurrentProduct]=useState(null)
@@ -38,6 +44,7 @@ function App() {
        
       <NavbarDisplay currentUser={currentUser} />
       {/* <Searchbar/> */}
+     
       <Router>
         <Routes>
           <Route exact path="/" element={<Home currentProduct={currentProduct} setCurrentProduct={setCurrentProduct}/>}/>
