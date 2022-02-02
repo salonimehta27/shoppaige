@@ -13,6 +13,7 @@ import AddProduct from './features/products/AddProduct';
 import Searchbar from './Searchbar';
 import CurrentUserListings from './features/products/CurrentUserListings';
 import StripeContainer from './StripeContainer';
+import Cart from './features/cart/Cart';
 
 
 function App() {
@@ -53,6 +54,7 @@ function App() {
           <Route exact path="/products/:id" element={<ProductDetails product={currentProduct}/>}/>
           <Route exact path="/addProduct" element={<AddProduct/>}/>
           <Route exact path="/yourListings/:id" element={<CurrentUserListings currentUser={currentUser}/>}/>
+          <Route exact path="/cart" element={<Cart/>} />
         </Routes>
       </Router>
     </div>

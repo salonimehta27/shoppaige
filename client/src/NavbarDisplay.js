@@ -42,9 +42,9 @@ function NavbarDisplay({itemCount}) {
           <Nav.Link href={currentUser!==null&&`/yourListings/${currentUser.id}`}>Listings</Nav.Link> */}
           {/* when the user becomes a seller then they can see the list of just their products in a tab */}
         </Nav>
-        <Badge color="secondary" badgeContent={1}>
-          <ShoppingCartIcon style={{color:"white"}} />{" "}
-        </Badge>
+        
+          <Nav.Link href="/cart"><Badge color="secondary" badgeContent={1}><ShoppingCartIcon style={{color:"white"}} />{" "}</Badge></Nav.Link>
+          
         </Container>
       </Navbar>
     )

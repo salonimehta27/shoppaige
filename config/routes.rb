@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   get 'sessions/destroy'
   resources :products
   resources :users
+  post "/payment", to:"charges#create"
   post "/signin", to:"sessions#create"
   post "/signup", to:"users#create"
   delete "/signout", to:"sessions#destroy"
