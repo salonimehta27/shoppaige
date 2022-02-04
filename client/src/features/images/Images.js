@@ -17,8 +17,14 @@ const Images = () => {
       s3Url:'http://shoppaige.s3-website-us-east-1.amazonaws.com'
   }
     // const [selectedFile, setSelectedFile] = useState(null);
-    const[imageUrl,setImageUrl]=useState(null)
-
+    // const[imageUrl1,setImageUrl1]=useState(null)
+    // const[imageUrl2,setImageUrl2]=useState(null)
+    // const[ImageUrl3,setImageUrl3]=useState(null)
+    const[imagesUrl,setImagesUrl]=useState({
+      image1:null,
+      image2:null,
+      image3:null
+    })
     // const handleFileInput = (e) => {
     //   // console.log(e.target.files[0])
     //     ;
@@ -28,16 +34,35 @@ const Images = () => {
       // setSelectedFile(e.target.files[0])
        uploadFile(e.target.files[0], config)
             .then(data => {
-              console.log(data.location)
-              setImageUrl(data.location)
+              // console.log(data.location)
+              if(e.target.name==="image1"){
+                setImagesUrl({...imagesUrl,image1:data.location})
+              }
+              else if(e.target.name==="image2"){
+                setImagesUrl({...imagesUrl,image2:data.location})
+              }
+              else if(e.target.name==="image3"){
+                setImagesUrl({...imagesUrl,image3:data.location})
+              }
             })
             .catch(err => console.log(err))
     }
+    console.log("image1",imagesUrl.image1)
+    console.log("image2",imagesUrl.image2)
+    console.log("image3",imagesUrl.image3)
 
     return <div>
         <Form.Group controlId="formFileMultiple" className="mb-3">
-        <Form.Label>Multiple files input example</Form.Label>
-        <Form.Control type="file" multiple onChange={upload} />
+        <Form.Label>Image 1</Form.Label>
+        <Form.Control type="file" name="image1" multiple onChange={upload} />
+        </Form.Group>
+        <Form.Group controlId="formFileMultiple"  className="mb-3">
+        <Form.Label>Image 2</Form.Label>
+        <Form.Control type="file" multiple name="image2" onChange={upload} />
+        </Form.Group>
+        <Form.Group controlId="formFileMultiple" className="mb-3">
+        <Form.Label>Image 3</Form.Label>
+        <Form.Control type="file" multiple name="image3" onChange={upload} />
         </Form.Group>
         {/* <div>React S3 File Upload</div>
         <input type="file" onChange={upload}/> */}

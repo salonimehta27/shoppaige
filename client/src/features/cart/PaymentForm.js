@@ -4,8 +4,9 @@ import {
   useStripe,
   useElements
 } from "@stripe/react-stripe-js";
+import ShippingForm from "./ShippingForm";
 
-export default function CheckoutForm() {
+export default function PaymentForm() {
   const stripe = useStripe();
   const elements = useElements();
 
@@ -59,7 +60,7 @@ export default function CheckoutForm() {
       elements,
       confirmParams: {
         // Make sure to change this to your payment completion page
-        return_url: "http://localhost:4000",
+        return_url: "http://localhost:4000/paymentComplete",
       },
     });
 
@@ -79,6 +80,7 @@ export default function CheckoutForm() {
 
   return (
     <form id="payment-form" onSubmit={handleSubmit}>
+      {/* <ShippingForm name={name} setName={setName} address={address} handleAddressForm={handleAddressForm} handleSubmit={handleOnSubmit}/> */}
       <PaymentElement id="payment-element" />
       <button disabled={isLoading || !stripe || !elements} id="submit">
         <span id="button-text">
@@ -90,7 +92,6 @@ export default function CheckoutForm() {
     </form>
   );
 }
-
 
 
 

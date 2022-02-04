@@ -1,13 +1,33 @@
 import React,{useState} from 'react';
-import StripeContainer from '../../StripeContainer';
-import {Container} from "react-bootstrap"
+import StripeContainer from './StripeContainer';
+import {Container, Nav} from "react-bootstrap"
+import ShippingForm from './ShippingForm';
 function Cart() {
     const[showItem,setShowItem]=useState(false)
-  return <div>
+    // const[name,setName]=useState("")
+    // const[address,setAddress]=useState({
+    //         line1:"",
+    //         line2:"",
+    //         city:"",
+    //         postal_code:null,
+    //         state:"",
+    //         country:""
+    // })
+
+    // function handleAddressForm(e){
+    //     setAddress({...address,[e.target.name]:e.target.value})
+    // }
+  return (
+  <div>
       <Container style={{marginTop:"25px"}}>
-       {showItem?<StripeContainer/>:<><h3>$10.00</h3><button onClick={()=>setShowItem(true)}>Purchase</button></>}
+      <h3>$10.00</h3>
+      <Nav.Link href="/checkout"><button>Checkout</button></Nav.Link>
+      {/* {showItem&& <ShippingForm name={name} setName={setName} address={address} handleAddressForm={handleAddressForm}/>} */}
+       
+       
        </Container>
-  </div>;
+  </div>
+  )
 }
 
 export default Cart;

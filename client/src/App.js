@@ -12,8 +12,10 @@ import ProductDetails from './features/products/ProductDetails';
 import AddProduct from './features/products/AddProduct';
 import Searchbar from './Searchbar';
 import CurrentUserListings from './features/products/CurrentUserListings';
-import StripeContainer from './StripeContainer';
+import StripeContainer from './features/cart/StripeContainer';
 import Cart from './features/cart/Cart';
+import PaymentComplete from './features/cart/PaymentComplete';
+import Checkout from './features/cart/Checkout';
 
 
 function App() {
@@ -21,8 +23,7 @@ function App() {
   //passing the client secret obtained from the server
   // const options={
   //   clientSecret:
-  // }
- 
+
   const currentUser=useSelector((state)=>state.currentUser.entities)
   const dispatch=useDispatch()
   const[currentProduct,setCurrentProduct]=useState(null)
@@ -55,6 +56,9 @@ function App() {
           <Route exact path="/addProduct" element={<AddProduct/>}/>
           <Route exact path="/yourListings/:id" element={<CurrentUserListings currentUser={currentUser}/>}/>
           <Route exact path="/cart" element={<Cart/>} />
+          <Route exact path="/paymentComplete" element={<PaymentComplete/>}/>
+          <Route exact path="/checkout" element={<Checkout />}/>
+          {/* <Route exact path="/cardPayment" element={<StripeContainer name={name} address={address}/>}/> */}
         </Routes>
       </Router>
     </div>

@@ -11,13 +11,25 @@ class ChargesController < ApplicationController
       automatic_payment_methods: {
         enabled: true,
       },
+      shipping:{
+        name:params[:charge][:name],
+        address:{
+          city:params[:charge][:address][:city],
+          country:params[:charge][:address][:country],
+          line1:params[:charge][:address][:line1],
+          line2:params[:charge][:address][:line2],
+          postal_code:params[:charge][:address][:postal_code],
+          state:params[:charge][:address][:state]
+        }
+      }
     )
-  
+    puts payment_intent
     render json:{
       clientSecret: payment_intent['client_secret']
     }
 
   end
+
   #   session=Stripe::Checkout::Session.create({
   #     line_items:[{
   #       price: params[:price],
