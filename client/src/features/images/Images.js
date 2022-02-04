@@ -1,12 +1,14 @@
-import React , {useState} from 'react';
+import React , {useState,useEffect} from 'react';
 import { Form } from 'react-bootstrap';
 import {uploadFile} from 'react-s3';
+import {useDispatch} from "react-redux"
+import {imagesAdded} from './imagesSlice';
 
 
-const Images = () => {
+const Images = ({handleImages}) => {
   const S3_BUCKET ='shoppaige';
   const REGION ='us-east-1';
-  
+  const dispatch=useDispatch()
   
   const config = {
       bucketName: S3_BUCKET,
@@ -16,53 +18,65 @@ const Images = () => {
       secretAccessKey: '2YoDFUGMbD8ArIuYULU1DznvHU547+ypnwU2DrTL',
       s3Url:'http://shoppaige.s3-website-us-east-1.amazonaws.com'
   }
+
+  // useEffect(()=>{
+  //   fetch(`/images`)
+  //   .then(res=>res.json())
+  //   .then(data=>dispatch(imagesAdded(data)))
+  // },[])
     // const [selectedFile, setSelectedFile] = useState(null);
-    // const[imageUrl1,setImageUrl1]=useState(null)
-    // const[imageUrl2,setImageUrl2]=useState(null)
-    // const[ImageUrl3,setImageUrl3]=useState(null)
-    const[imagesUrl,setImagesUrl]=useState({
-      image1:null,
-      image2:null,
-      image3:null
-    })
+    // const[imagesUrl,setImagesUrl]=useState([])
+
+    // const[imagesUrl,setImagesUrl]=useState({
+    //   image1:null,
+    //   image2:null,
+    //   image3:null
+    // })
     // const handleFileInput = (e) => {
     //   // console.log(e.target.files[0])
     //     ;
     // }
+    
 
     function upload(e){
       // setSelectedFile(e.target.files[0])
        uploadFile(e.target.files[0], config)
             .then(data => {
-              // console.log(data.location)
-              if(e.target.name==="image1"){
-                setImagesUrl({...imagesUrl,image1:data.location})
-              }
-              else if(e.target.name==="image2"){
-                setImagesUrl({...imagesUrl,image2:data.location})
-              }
-              else if(e.target.name==="image3"){
-                setImagesUrl({...imagesUrl,image3:data.location})
-              }
+              // handleChange({...product.images,[product.images]:{...product.images,imageUrl:data.location}})
+              handleImages(data.location)
+              // handleChange(e.target.files[0])
+              // if(e.target.name==="image1"){
+              //   setImagesUrl({...imagesUrl,image1:data.location})
+              //   dispatch(imagesAdded({imageUrl:data.location}))
+                
+              // }
+              // else if(e.target.name==="image2"){
+              //   setImagesUrl({...imagesUrl,image2:data.location})
+              //   dispatch(imagesAdded({imageUrl:data.location}))
+              // }
+              // else if(e.target.name==="image3"){
+              //   setImagesUrl({...imagesUrl,image3:data.location})
+              //   dispatch(imagesAdded({imageUrl:data.location}))
+              // }
             })
             .catch(err => console.log(err))
     }
-    console.log("image1",imagesUrl.image1)
-    console.log("image2",imagesUrl.image2)
-    console.log("image3",imagesUrl.image3)
+    // console.log("image1",imagesUrl.image1)
+    // console.log("image2",imagesUrl.image2)
+    // console.log("image3",imagesUrl.image3)
 
     return <div>
         <Form.Group controlId="formFileMultiple" className="mb-3">
         <Form.Label>Image 1</Form.Label>
-        <Form.Control type="file" name="image1" multiple onChange={upload} />
+        <Form.Control type="file" name="images" multiple onChange={upload} />
         </Form.Group>
         <Form.Group controlId="formFileMultiple"  className="mb-3">
         <Form.Label>Image 2</Form.Label>
-        <Form.Control type="file" multiple name="image2" onChange={upload} />
+        <Form.Control type="file" multiple name="images" onChange={upload} />
         </Form.Group>
         <Form.Group controlId="formFileMultiple" className="mb-3">
         <Form.Label>Image 3</Form.Label>
-        <Form.Control type="file" multiple name="image3" onChange={upload} />
+        <Form.Control type="file" multiple name="images" onChange={upload} />
         </Form.Group>
         {/* <div>React S3 File Upload</div>
         <input type="file" onChange={upload}/> */}

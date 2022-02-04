@@ -1,3 +1,5 @@
+
+
 class ProductsController < ApplicationController
  skip_before_action :authorize, only: [:index,:show]
     def index 
@@ -18,11 +20,22 @@ class ProductsController < ApplicationController
 
     def create 
         product=Product.new(product_params)
+        # binding.pry
+        puts Image
+        
         if(product.save)
             # binding.pry
-            @current_user.add_role :seller, product 
+            # binding.pry
+            current_user=User.find(session[:user_id])
+            current_user.add_role(:seller) unless current_user.roles.any?{|role| role.name=="seller"} 
+            params[:images].each {|x| Image.create(image_url:x[:image_url],product_id:product.id)}
         end
-        authorize product
+           
+            # puts x[:image_url]
+            
+            # image.save!
+            # Image.create(image_url:x[:image_url],product_id:product.id)
+          
         render json: product, status: :created
     end
 
@@ -46,6 +59,11 @@ class ProductsController < ApplicationController
     private 
 
     def product_params 
-        params.permit(:name,:price,:description,:color,:size,:quantity,:user_id)
+        params.require(:product).permit(:name,:price,:description,:color,:category_id, :size,:quantity,:user_id,
+        images:[:image_url,:product_id])
     end
+
+    # def images_params
+    #     params.permit(:image_url,:product_id)
+    # end
 end

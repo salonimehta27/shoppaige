@@ -1,7 +1,8 @@
 require 'stripe'
 require 'securerandom'
-# skip_before_action :authorize, only: :create
+
 class ChargesController < ApplicationController
+  skip_before_action :authorize, only: :create
   def create 
     Stripe.api_key='sk_test_51KHMZ6LX7eA72NUeag5u1hQJjM2mA4mZzEBxgIuKwpNPkk9ekkolUBze9nUhVqAM0E5WpBUeZaVAacZeT9orYvKj00wXc4izAv'
 
