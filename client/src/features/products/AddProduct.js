@@ -1,5 +1,5 @@
 import React,{useState} from 'react'
-import {Container, Form,InputGroup,FormControl} from "react-bootstrap"
+import {Container, Form,InputGroup,FormControl,Row,Col} from "react-bootstrap"
 import Images from '../images/Images'
 import{useSelector,useDispatch} from "react-redux"
 import {useNavigate} from "react-router-dom"
@@ -56,10 +56,13 @@ function handleChange(e){
 }
 console.log(product)
     return (
-        <Container>
+        <Container style={{marginTop:"75px"}}>
+             <Row className="justify-content-md-center">
+        <Col xs sm={7}>
         <div className="m-3">
-            <h1>Upload your product</h1>
+           
             <Form onSubmit={handleProductAdd} size="sm">
+            <h1>Upload your product</h1>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
         <Form.Label>Name of the Product</Form.Label>
         <Form.Control type="text" name="name" value={product.name} onChange={handleChange} placeholder="Product name" />
@@ -107,6 +110,8 @@ console.log(product)
         
         {/* <button className="btn btn-outline-primary">Upload</button> */}
       </div>
+      </Col>
+      </Row>
       </Container>
     )
 }

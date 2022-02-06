@@ -1,4 +1,4 @@
-import {Button,Form,Container} from "react-bootstrap"
+import {Button,Form,Container,Row,Col} from "react-bootstrap"
 import {useState} from "react"
 import {useNavigate} from 'react-router-dom'
 import {useSelector,useDispatch} from "react-redux"
@@ -37,9 +37,11 @@ const navigate=useNavigate();
     }
     console.log(errors)
     return (
-        <Container style={{marginTop:"25px"}}>
-            <h3>Signin</h3>
+        <Container style={{marginTop:"75px"}}>
+        <Row className="justify-content-md-center">
+        <Col xs sm={7}>
         <Form onSubmit={handleSignin}>
+        <h3>Signin</h3>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>
           <Form.Control type="email" placeholder="Enter email" value={email} onChange={(e)=>setEmail(e.target.value)}/>
@@ -66,6 +68,9 @@ const navigate=useNavigate();
             Don't have an account?  <a href="/signup">create an account</a>
         </p>
       </Form> 
+      </Col>
+  
+      </Row>
       </Container>
     )
 }

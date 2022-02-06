@@ -19,32 +19,33 @@ function NavbarDisplay({itemCount}) {
     
   }
     return (
-        <Navbar bg="dark" variant="dark">
+        <Navbar collapseOnSelect fixed="top" expand="sm" bg="dark" variant="dark">
         <Container>
+        <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
+        <Navbar.Collapse id="responsive-navbar-nav">
         <Navbar.Brand href="/">Shoppaige</Navbar.Brand>
-        <Nav className="me-auto">
+          <Nav className="me-auto" collapseOnSelect fixed="top" expand="sm">
           <Nav.Link href="/">Home</Nav.Link>
           {currentUser!==null || currentUser==={}?<Nav.Link onClick={handleSignout}>Signout</Nav.Link>:<Nav.Link href="/signin">Signin</Nav.Link>}
-          {/* <Nav.Link href="/signin">Signin</Nav.Link> */}
-          {/* <Nav.Link href="/signup">Signup</Nav.Link> */}
-          <NavDropdown
+          {currentUser!==null&& <><NavDropdown
           id="nav-dropdown-dark-example"
           title="Profile"
           menuVariant="dark"
-        >
-          <NavDropdown.Item href="/addProduct">Become a seller</NavDropdown.Item>
-          <NavDropdown.Item href={currentUser!==null&&`/yourListings/${currentUser.id}`}>Listings</NavDropdown.Item>
-          {/* <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-          <NavDropdown.Divider />
-          <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item> */}
-        </NavDropdown>
-          {/* <Nav.Link href="/addProduct">Become a seller</Nav.Link>
-          <Nav.Link href={currentUser!==null&&`/yourListings/${currentUser.id}`}>Listings</Nav.Link> */}
-          {/* when the user becomes a seller then they can see the list of just their products in a tab */}
+          >
+        <NavDropdown.Item href="/addProduct">Become a seller</NavDropdown.Item>
+        <NavDropdown.Item href={`/yourListings/${currentUser.id}`}>Listings</NavDropdown.Item>
+        </NavDropdown></>}
         </Nav>
+        <Nav>
+        <Navbar.Collapse className="justify-content-end">
+        {currentUser!==null&&<Navbar.Text>
+        Hello, <a href="#login">{currentUser.first_name}</a>
+        </Navbar.Text>}
+       </Navbar.Collapse>
         
-          <Nav.Link href="/cart"><Badge color="secondary" badgeContent={1}><ShoppingCartIcon style={{color:"white"}} />{" "}</Badge></Nav.Link>
-          
+        <Nav.Link href="/cart" eventKey={2} className="justify-content-end"><Badge color="secondary" badgeContent={1}><ShoppingCartIcon style={{color:"white"}} />{" "}</Badge></Nav.Link>
+        </Nav>
+        </Navbar.Collapse>
         </Container>
       </Navbar>
     )

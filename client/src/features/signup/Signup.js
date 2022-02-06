@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Form } from 'react-bootstrap'
+import { Container, Form,Row,Col } from 'react-bootstrap'
 import {useState} from "react"
 import {useNavigate} from 'react-router-dom'
 import {useDispatch,useSelector} from "react-redux"
@@ -55,9 +55,11 @@ function handleSubmit(e){
     setSignupForm({...signupForm,[e.target.name]:e.target.value})
  }
     return (
-        <Container style={{marginTop:"25px"}}>
+        <Container style={{marginTop:"75px"}}>
+        <Row className="justify-content-md-center">
+        <Col xs sm={7}>
+        <Form onSubmit={handleSubmit} style={{marginBottom: "0px!important"}}>
         <h3>Signup</h3>
-        <Form onSubmit={handleSubmit}>
         <Form.Group className="form-group">
             <Form.Label>First name</Form.Label>
             <Form.Control type="text" className="form-control" name="first_name" value={signupForm.first_name}placeholder="First name" onChange={handleChange}/>
@@ -89,6 +91,8 @@ function handleSubmit(e){
             Already registered <a href="/signin">log in?</a>
         </p>
     </Form>
+    </Col>
+    </Row>
     </Container>
 )
 }

@@ -3,6 +3,7 @@ import { contextSourcesMap } from 'tailwindcss/lib/jit/lib/sharedState'
 import {useSelector} from "react-redux"
 import {useParams} from "react-router-dom"
 import Listings from './Listings'
+import { Container } from 'react-bootstrap'
 function CurrentUserListings() {
 
 const {id}= useParams()
@@ -15,15 +16,13 @@ const[userListings,setUserListings]=useState([])
         .then(data=>setUserListings(data))
     },[])
 
-    // if(listings.length===0){
-
-    // }
-    console.log(userListings)
+    // console.log(userListings)
     const listings=userListings.map((listing=><Listings listing={listing}/>))
     return (
-        <div>
+        <Container style={{marginTop:"75px"}}>
+            <h1>My Listings</h1>
             {listings.length!==0?listings:<h2>Please upload a product to become a seller</h2>}
-        </div>
+        </Container>
     )
 }
 
