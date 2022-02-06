@@ -49,10 +49,10 @@ function App() {
      
       <Router>
         <Routes>
-          <Route exact path="/" element={<Home currentProduct={currentProduct} setCurrentProduct={setCurrentProduct}/>}/>
+          <Route exact path="/" element={<Home currentProduct={currentProduct} setCurrentProduct={setCurrentProduct} currentUser={currentUser}/>}/>
           <Route exact path="/signin" element={<Signin/>}/>
           <Route exact path="/signup" element={<Signup /> }/>
-          <Route exact path="/products/:id" element={<ProductDetails product={currentProduct}/>}/>
+          <Route exact path="/products/:id" element={<ProductDetails product={currentProduct} currentUser={currentUser}/>}/>
           <Route exact path="/addProduct" element={<AddProduct currentUser={currentUser}/>}/>
           <Route exact path="/yourListings/:id" element={<CurrentUserListings currentUser={currentUser}/>}/>
           <Route exact path="/cart" element={<Cart/>} />

@@ -6,27 +6,29 @@ import { useSelector } from 'react-redux';
 import ProductDetails from './ProductDetails'
 import { MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle,MDBRow, MDBCardText, MDBTooltip, MDBCardFooter, MDBBtn, MDBIcon,MDBCol} from "mdb-react-ui-kit";
 import "./product.scss"
-function DisplayProducts({product,setCurrentProduct}) {
+function DisplayProducts({product,setCurrentProduct,currentUser}) {
     const[errors,setErrors]=useState([])
-    const currentUser=useSelector((state)=>state.currentUser.entitites)
+    // const currentUser=useSelector((state)=>state.currentUser.entitites)
     const navigate=useNavigate()
     function handleProductPage(){
         navigate(`/products/${product.id}`)
         setCurrentProduct(product)
     }
-    console.log(currentUser)
-  //  console.log(product.images[0].image_url)
+  //   console.log(currentUser)
+  // //  console.log(product.images[0].image_url)
+  // console.log(product)
+  
     return (
       <>
-      <div className="card" onClick={handleProductPage}>
-        <div className="card__body">
+      <div className="card">
+        <div className="card__body" onClick={handleProductPage}>
           <img className="card__image"src={product.images[0].image_url}/>
           <h5 className="card__title">{product.name}</h5>
           <p className="card__description">${product.price}</p>
           
           <p className="card__description">{product.description.length>50?`${product.description.substring(0,50)}...`:product.description}</p>
         </div>
-        <button className="card__btn">Add to Cart</button>
+        {product!==null&&currentUser!==null&&product.user_id===currentUser.id?<button disabled>ADD TO CART</button>:<button className="card__btn">ADD TO CART</button>}
       </div>
       {/* <MDBRow>
       <MDBCol sm="6">

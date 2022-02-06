@@ -4,7 +4,7 @@ import {useState} from "react"
 import ImageSlider from '../images/ImageSlider'
 import { Button, Container } from 'react-bootstrap'
 
-function ProductDetails() {
+function ProductDetails({currentUser}) {
 const {id}=useParams()
 const[product,setProduct]=useState(null)
 console.log(id)
@@ -16,7 +16,8 @@ console.log(id)
             }
         })
     },[])
-    console.log(product)
+    // console.log(product)
+    // console.log(currentUser.id)
 
     return (
         <Container>
@@ -29,7 +30,10 @@ console.log(id)
             {product.quantity<3?<div style={{color:"red"}}role="alert">
           only {product.quantity} left
            </div>:null}
-           <Button>ADD TO CART</Button>
+           {product.user_id===currentUser.id?  <Button variant="primary" size="lg" disabled>
+           ADD TO CART
+           </Button>:
+            <Button>ADD TO CART</Button>}
             </>}
             
         </Container>
