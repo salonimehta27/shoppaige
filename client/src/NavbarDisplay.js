@@ -21,11 +21,13 @@ function NavbarDisplay({itemCount}) {
     return (
         <Navbar collapseOnSelect fixed="top" expand="sm" bg="dark" variant="dark">
         <Container>
+        
         <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
+        
         <Navbar.Collapse id="responsive-navbar-nav">
         <Navbar.Brand href="/">Shoppaige</Navbar.Brand>
           <Nav className="me-auto" collapseOnSelect fixed="top" expand="sm">
-          <Nav.Link href="/">Home</Nav.Link>
+          {/* <Nav.Link href="/">Home</Nav.Link> */}
           {currentUser!==null || currentUser==={}?<Nav.Link onClick={handleSignout}>Signout</Nav.Link>:<Nav.Link href="/signin">Signin</Nav.Link>}
           {currentUser!==null&& <><NavDropdown
           id="nav-dropdown-dark-example"

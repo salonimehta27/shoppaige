@@ -1,6 +1,6 @@
 import React,{useState} from 'react';
 import ShippingForm from './ShippingForm';
-import {Container} from 'react-bootstrap'
+import {Container,Row,Col} from 'react-bootstrap'
 
 function Checkout() {
   // }
@@ -17,10 +17,12 @@ function Checkout() {
   function handleAddressForm(e){
       setAddress({...address,[e.target.name]:e.target.value})
   }
-  return <Container>
-
+  return <Container style={{marginTop:"75px"}}>
+     <Row className="justify-content-md-center">
+    <Col xs lg="7">
      <ShippingForm name={name} setName={setName} address={address} handleAddressForm={handleAddressForm}/>
-
+     </Col>
+     </Row>
   </Container>;
 }
 

@@ -9,7 +9,7 @@ import { navigate } from 'react-big-calendar/lib/utils/constants'
 function AddProduct({currentUser}) {
 // const images=useSelector((state)=>state.images.entities)
 // console.log(images)
-console.log(currentUser)
+// console.log(currentUser)
 const[imagesUrl,setImages]=useState([])
 const navigate=useNavigate()
 const[product,setProduct]=useState({
@@ -29,7 +29,7 @@ function handleImages(url){
     setProduct({...product,["images"]:[...product.images,{"image_url":url}]})
     // setProduct({...product,[images]:images.push({image_url:url})})
 }
-console.log(imagesUrl)
+// console.log(imagesUrl)
 function handleProductAdd(e){
     e.preventDefault()
     fetch('/products',{

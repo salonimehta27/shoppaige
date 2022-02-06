@@ -4,7 +4,7 @@ import {
   useStripe,
   useElements
 } from "@stripe/react-stripe-js";
-import ShippingForm from "./ShippingForm";
+
 
 export default function PaymentForm() {
   const stripe = useStripe();
