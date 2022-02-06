@@ -1,24 +1,29 @@
 import React,{useState} from 'react'
 // import {Card,Button,Col,Row} from "react-bootstrap"
 import {useNavigate} from "react-router-dom"
+import { currentUserAdded } from '../signup/signinSlice';
+import { useSelector } from 'react-redux';
 import ProductDetails from './ProductDetails'
 import { MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle,MDBRow, MDBCardText, MDBTooltip, MDBCardFooter, MDBBtn, MDBIcon,MDBCol} from "mdb-react-ui-kit";
 import "./product.scss"
 function DisplayProducts({product,setCurrentProduct}) {
     const[errors,setErrors]=useState([])
+    const currentUser=useSelector((state)=>state.currentUser.entitites)
     const navigate=useNavigate()
     function handleProductPage(){
         navigate(`/products/${product.id}`)
         setCurrentProduct(product)
     }
+    console.log(currentUser)
   //  console.log(product.images[0].image_url)
     return (
       <>
       <div className="card" onClick={handleProductPage}>
         <div className="card__body">
           <img className="card__image"src={product.images[0].image_url}/>
-          <h2 className="card__title"></h2>
+          <h5 className="card__title">{product.name}</h5>
           <p className="card__description">${product.price}</p>
+          
           <p className="card__description">{product.description.length>50?`${product.description.substring(0,50)}...`:product.description}</p>
         </div>
         <button className="card__btn">Add to Cart</button>

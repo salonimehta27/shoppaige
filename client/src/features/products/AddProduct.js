@@ -2,6 +2,8 @@ import React,{useState} from 'react'
 import {Container, Form,InputGroup,FormControl} from "react-bootstrap"
 import Images from '../images/Images'
 import{useSelector,useDispatch} from "react-redux"
+import {useNavigate} from "react-router-dom"
+import { navigate } from 'react-big-calendar/lib/utils/constants'
 
 
 function AddProduct({currentUser}) {
@@ -9,6 +11,7 @@ function AddProduct({currentUser}) {
 // console.log(images)
 console.log(currentUser)
 const[imagesUrl,setImages]=useState([])
+const navigate=useNavigate()
 const[product,setProduct]=useState({
     name:"",
     price:null,
@@ -38,7 +41,10 @@ function handleProductAdd(e){
             ...product,user_id:currentUser.id
         })
     }).then(res=>res.json())
-    .then(data=>console.log(data))
+    .then(data=>{
+        setProduct(product)
+        navigate("/")
+    })
 }
 function handleChange(e){
     if(e.target.name==="category_id"){
