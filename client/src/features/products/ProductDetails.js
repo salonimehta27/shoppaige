@@ -2,6 +2,9 @@ import React,{useEffect} from 'react'
 import {useParams} from "react-router-dom"
 import {useState} from "react"
 import { contextSourcesMap } from 'tailwindcss/lib/jit/lib/sharedState'
+import ImageSlider from '../images/ImageSlider'
+import { Container } from 'react-bootstrap'
+import { Carousel } from 'react-bootstrap';
 
 function ProductDetails() {
 const {id}=useParams()
@@ -17,14 +20,22 @@ console.log(id)
     },[])
     // console.log(product.product.name)
     console.log(product)
+// const arrOfImages= (product.images!==null)? 
+//     product.images.map(x=>{
+//    return {url:x.image_url}
+// }):null
+// console.log(arrOfImages)
+// const images= product!==null&& product.images.map(x=><ImageSlider images={x.image_url}></ImageSlider>)
+    // console.log(images)
     return (
-        <div>
+        <Container>
             {product!==null&&<>
-                <p>name: {product.name}</p>
+                <h1>{product.name}</h1>
+           <ImageSlider images={product.images}></ImageSlider>
             <p>description: {product.description}</p>
             </>}
             
-        </div>
+        </Container>
     )
 }
 

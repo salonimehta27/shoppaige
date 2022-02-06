@@ -4,6 +4,8 @@ import DisplayProduct from "./DisplayProducts"
 import { productAdded } from './productsSlice'
 import {useSelector,useDispatch} from "react-redux"
 import {useEffect,useState} from "react"
+import { MDBRow } from 'mdb-react-ui-kit'
+import Row from "react-bootstrap/Row"
 
 function Products({currentProduct,setCurrentProduct}) {
     const dispatch=useDispatch()
@@ -23,13 +25,13 @@ function Products({currentProduct,setCurrentProduct}) {
     },[])
 
     return (
-        <Container style={{marginTop:"25px"}}>
+        <div className="wrapper">
             {products.map(product=>{
              return   <>
             {product.map(p=><DisplayProduct product={p} setCurrentProduct={setCurrentProduct}/>)}
             </>
             })}      
-        </Container>
+        </div>
         
     )
 }
