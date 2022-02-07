@@ -39,7 +39,7 @@ console.log(id)
             only {product.quantity} left
             </div>:null}
             {currentUser!==null&&product.user_id===currentUser.id?  <Button variant="primary" size="lg" disabled>
-           ADD TO CART
+           {product.quantity===0?"OUT OF STOCK":"ADD TO CART"}
            </Button>:
             <Button>ADD TO CART</Button>}
                </Col>

@@ -14,7 +14,7 @@ function Listings({listing}) {
         {listing.description.length>50?`${listing.description.substring(0,50)}...`:listing.description}
        </div>
        <Badge variant="primary" pill>
-        {listing.quantity}
+        {listing.quantity===0||listing.quantity===null?"Out of Stock":`${listing.quantity}`}
       </Badge>
   </ListGroup.Item>
   </ListGroup>

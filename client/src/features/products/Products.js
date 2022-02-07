@@ -7,11 +7,12 @@ import {useEffect,useState} from "react"
 import { MDBRow } from 'mdb-react-ui-kit'
 import Row from "react-bootstrap/Row"
 
-function Products({currentProduct,setCurrentProduct,currentUser}) {
+function Products({currentProduct,setCurrentProduct,currentUser,search}) {
     const dispatch=useDispatch()
     const[errors,setErrors]=useState([])
     const products=useSelector(state=>state.products.entities)
     console.log(products)
+    // debugger
     useEffect(()=>{
         fetch("/products")
         .then(r=>{
@@ -23,12 +24,12 @@ function Products({currentProduct,setCurrentProduct,currentUser}) {
             }
         })
     },[])
-
+// console.log(products)
     return (
         <div className="wrapper">
-            {products.map(product=>{
+            {products!==null&& products.map(product=>{
              return   <>
-            {product.map(p=><DisplayProduct product={p} currentUser={currentUser} setCurrentProduct={setCurrentProduct}/>)}
+            {product.filter(prod=> prod.name.toLowerCase().includes(search.toLowerCase())).map(p=><DisplayProduct product={p} currentUser={currentUser} setCurrentProduct={setCurrentProduct}/>)}
             </>
             })}      
         </div>

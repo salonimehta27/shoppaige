@@ -1,5 +1,3 @@
-
-
 class ProductsController < ApplicationController
  skip_before_action :authorize, only: [:index,:show]
     def index 
@@ -16,6 +14,11 @@ class ProductsController < ApplicationController
         # byebug
         products=Product.where(user_id:params[:user_id]).to_a
         render json: products
+    end
+    def product_by_category
+        products=Product.where(category_id:params[:category_id]).to_a
+        render json: products
+
     end
 
     def create 

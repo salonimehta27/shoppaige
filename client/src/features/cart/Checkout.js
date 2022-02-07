@@ -2,8 +2,8 @@ import React,{useState} from 'react';
 import ShippingForm from './ShippingForm';
 import {Container,Row,Col} from 'react-bootstrap'
 
-function Checkout() {
-  // }
+function Checkout({totalPrice}) {
+  console.log(totalPrice)
   const[name,setName]=useState("")
   const[address,setAddress]=useState({
           line1:"",
@@ -20,7 +20,7 @@ function Checkout() {
   return <Container style={{marginTop:"75px"}}>
      <Row className="justify-content-md-center">
     <Col xs lg="7">
-     <ShippingForm name={name} setName={setName} address={address} handleAddressForm={handleAddressForm}/>
+     <ShippingForm name={name} setName={setName} address={address} totalPrice={totalPrice} handleAddressForm={handleAddressForm}/>
      </Col>
      </Row>
   </Container>;

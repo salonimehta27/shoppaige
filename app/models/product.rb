@@ -4,5 +4,6 @@ class Product < ApplicationRecord
     belongs_to :category
     has_many :images
     accepts_nested_attributes_for :images
+    has_many :cart_products
 
 end

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :cart_products
   resources :images
   resources :carts
   resources :categories
@@ -12,8 +13,11 @@ Rails.application.routes.draw do
   delete "/signout", to:"sessions#destroy"
   get "/me", to: "users#show" 
   get "/userProducts/:user_id",to: "products#user_products"
+  get "/productsCategory/:category_id",to:"products#product_by_category"
+  get "/myCart", to: "carts#current_cart"
+  post "/addtocart", to:"cart_products#create"
   # root to: "home#index"
-
+delete "/cart_products/:product_id",to: "cart_products#destroy"
   # Routing logic: fallback requests for React Router.
   # Leave this here to help deploy your app later!
   get "*path", to: "fallback#index", constraints: ->(req) { !req.xhr? && req.format.html? }

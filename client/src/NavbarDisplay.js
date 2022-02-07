@@ -9,6 +9,7 @@ import {currentUserAdded} from "./features/signup/signinSlice"
 
 function NavbarDisplay({itemCount}) {
   const currentUser=useSelector((state=>state.currentUser.entities))
+  // console.log(currentUser.cart.id)
   const dispatch=useDispatch()
   function handleSignout(){
     fetch("/signout",{
@@ -29,6 +30,7 @@ function NavbarDisplay({itemCount}) {
           <Nav className="me-auto" collapseOnSelect fixed="top" expand="sm">
           {/* <Nav.Link href="/">Home</Nav.Link> */}
           {currentUser!==null || currentUser==={}?<Nav.Link onClick={handleSignout}>Signout</Nav.Link>:<Nav.Link href="/signin">Signin</Nav.Link>}
+          {currentUser!==null &&<Nav.Link>Sellers</Nav.Link>}
           {currentUser!==null&& <><NavDropdown
           id="nav-dropdown-dark-example"
           title="Profile"
@@ -40,12 +42,13 @@ function NavbarDisplay({itemCount}) {
         </Nav>
         <Nav>
         <Navbar.Collapse className="justify-content-end">
+          
         {currentUser!==null&&<Navbar.Text>
         Hello, <a href="#login">{currentUser.first_name}</a>
         </Navbar.Text>}
        </Navbar.Collapse>
         
-        <Nav.Link href="/cart" eventKey={2} className="justify-content-end"><Badge color="secondary" badgeContent={1}><ShoppingCartIcon style={{color:"white"}} />{" "}</Badge></Nav.Link>
+      <Nav.Link href={currentUser!==null?`/carts/${currentUser.cart.id}`:null} eventKey={2} className="justify-content-end"><Badge color="secondary" badgeContent={1}><ShoppingCartIcon style={{color:"white"}} />{" "}</Badge></Nav.Link>
         </Nav>
         </Navbar.Collapse>
         </Container>

@@ -1,11 +1,11 @@
 import React from 'react';
-import { Nav } from 'react-bootstrap';
+import { Container, Nav } from 'react-bootstrap';
 
 function PaymentComplete() {
-  return <div>
+  return <Container style={{marginTop:"75px"}}>
       <h1>Thank you. Your order has been processed</h1>
       <Nav.Link href="/">Continue Shopping</Nav.Link>
-  </div>;
+  </Container>;
 }
 
 export default PaymentComplete;

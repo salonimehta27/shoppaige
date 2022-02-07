@@ -1,14 +1,26 @@
 import React from "react";
 import { MDBCol } from "mdbreact";
+import {Container,Row,Col} from "react-bootstrap"
 import Filter from "./Filter";
 
-const Searchbar = () => {
+const Searchbar = ({search,setSearch}) => {
+
   return (
-    <MDBCol md="3" style={{marginTop:"80px"}}>
-      <Filter/>
-      <input className="form-control" style={{float:"left"}} type="text" placeholder="Search" aria-label="Search" />
+   
+      <Container  style={{marginTop:"75px"}}>
+        <Row>
+          <Col sm={4}>
+          <Filter/>
+          </Col>
+          <Col>
+          <input className="form-control" type="text" placeholder="Search"value={search} onChange={(e)=>setSearch(e.target.value)} aria-label="Search" />
+          </Col>
+        </Row>
+      </Container>
+     
       
-    </MDBCol>
+      
+ 
   );
 }
 

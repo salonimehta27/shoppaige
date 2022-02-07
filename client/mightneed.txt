@@ -1,0 +1,12 @@
+{/* <div>
+<Container style={{marginTop:"75px"}}>
+      <Row className="justify-content-md-center">
+    <Col xs lg="7">
+      <h3>$10.00</h3>
+      <Nav.Link href="/checkout"><button>Checkout</button></Nav.Link> */}
+      {/* {showItem&& <ShippingForm name={name} setName={setName} address={address} handleAddressForm={handleAddressForm}/>} */}
+       {/* </Col>
+       </Row>
+
+       </Container>
+  </div> */}

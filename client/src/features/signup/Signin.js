@@ -4,7 +4,7 @@ import {useNavigate} from 'react-router-dom'
 import {useSelector,useDispatch} from "react-redux"
 import {currentUserAdded} from "./signinSlice"
 
-function Signin({onSignin}) {
+function Signin() {
     const dispatch=useDispatch()
 const[email,setEmail]=useState("")
 const[password,setPassword]=useState("")

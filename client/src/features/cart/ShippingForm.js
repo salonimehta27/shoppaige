@@ -1,9 +1,12 @@
 import React,{useState} from 'react';
 import {Form,Container, Nav} from "react-bootstrap"
 import StripeContainer from './StripeContainer';
+import {useSelector} from "react-redux"
 
-function ShippingForm({name,setName,handleAddressForm,address,showItem}) {
+function ShippingForm({name,setName,handleAddressForm,address,showItem,totalPrice}) {
 //   console.log(address)
+// const totalPrice=useSelector((state)=>state.carts.totalPrice)
+// console.log(totalPrice)
 const[showPayment,setShowPayment]=useState(false)
   return (<>
       {showPayment===false?<>
@@ -25,12 +28,12 @@ const[showPayment,setShowPayment]=useState(false)
           <Form.Label>Country</Form.Label>
           <Form.Control type="text" name="country" placeholder="country" value={address.country} onChange={handleAddressForm}/>
           <div className="d-grid gap-2" style={{marginTop:"5px"}}>
-        <button onClick={()=>setShowPayment(true)}>Proceed to payment</button>
+        <button onClick={setShowPayment(true)}>Proceed to payment</button>
         </div>
         </Form.Group>
         </Form>   
   </>:
-  <StripeContainer name={name} address={address}></StripeContainer>}
+  <StripeContainer name={name} totalPrice={totalPrice} address={address}></StripeContainer>}
   </>)
 }
 
