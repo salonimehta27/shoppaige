@@ -16,9 +16,12 @@ class ProductsController < ApplicationController
         render json: products
     end
     def product_by_category
+        if(params[:category_id].to_i==0)
+         products=Product.all
+        else
         products=Product.where(category_id:params[:category_id]).to_a
+        end
         render json: products
-
     end
 
     def create 
