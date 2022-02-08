@@ -12,6 +12,11 @@ class UsersController < ApplicationController
     render json: user, status: :ok
  end
 
+ def get_sellers
+   sellers=Role.find_by(name:"seller").users
+   render json:sellers
+ end
+
  def create 
     user=User.create!(user_params)
     session[:user_id]=user.id

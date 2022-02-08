@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   post "/signin", to:"sessions#create"
   post "/signup", to:"users#create"
   delete "/signout", to:"sessions#destroy"
+  get "/sellers", to:"users#get_sellers"
   get "/me", to: "users#show" 
   get "/userProducts/:user_id",to: "products#user_products"
   get "/productsCategory/:category_id",to:"products#product_by_category"
