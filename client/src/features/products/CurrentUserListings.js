@@ -3,10 +3,11 @@ import { contextSourcesMap } from 'tailwindcss/lib/jit/lib/sharedState'
 import {useSelector} from "react-redux"
 import {useParams} from "react-router-dom"
 import Listings from './Listings'
-import { Container } from 'react-bootstrap'
+import { Container,Stack } from 'react-bootstrap'
 function CurrentUserListings() {
 
 const {id}= useParams()
+const[search,setSearch]=useState("")
 const[userListings,setUserListings]=useState([])
 // console.log(currentUser)
 
@@ -17,11 +18,14 @@ const[userListings,setUserListings]=useState([])
     },[])
 
     // console.log(userListings)
-    const listings=userListings.map((listing=><Listings listing={listing}/>))
+    const listings=userListings.filter(list=>list.name.toLowerCase().includes(search.toLowerCase())).map((listing=><Listings listing={listing}/>))
     return (
         <Container style={{marginTop:"75px"}}>
             <h1>My Listings</h1>
-            {listings.length!==0?listings:<h2>Please upload a product to become a seller</h2>}
+            <Stack gap={1}>
+            <div><input className="form-control" type="text" placeholder="Search listings..."value={search} onChange={(e)=>setSearch(e.target.value)} aria-label="Search" /></div>
+            <div>{listings.length!==0?listings:<h2>Please upload a product to become a seller</h2>}</div>
+            </Stack>
         </Container>
     )
 }

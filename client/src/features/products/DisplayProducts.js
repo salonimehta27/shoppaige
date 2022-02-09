@@ -4,14 +4,15 @@ import {useNavigate} from "react-router-dom"
 import { currentUserAdded } from '../signup/signinSlice';
 import { useSelector } from 'react-redux';
 import ProductDetails from './ProductDetails'
-import { MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle,MDBRow, MDBCardText, MDBTooltip, MDBCardFooter, MDBBtn, MDBIcon,MDBCol} from "mdb-react-ui-kit";
 import "./product.scss"
 import { Container,Row,Col } from 'react-bootstrap';
 import { cartProductsAdded } from '../cart/cartsSlice';
 function DisplayProducts({product,setCurrentProduct,currentUser}) {
+  const cartData=useSelector((state)=>state.carts.entities)
+  const totalPrice=useSelector((state)=>state.carts.totalPrice)
+  console.log(totalPrice)
+    console.log(cartData)
     const[errors,setErrors]=useState([])
-    // const[productAdded,setProductAdded]=useState([])
-    // const currentUser=useSelector((state)=>state.currentUser.entitites)
     const navigate=useNavigate()
     function handleProductPage(){
         navigate(`/products/${product.id}`)
@@ -25,7 +26,6 @@ function DisplayProducts({product,setCurrentProduct,currentUser}) {
           "content-type":"application/json"
         },
         body:JSON.stringify({
-          cart_id:currentUser.cart.id,
           product_id:product.id,
           item_quantity:1
         })
@@ -42,7 +42,8 @@ function DisplayProducts({product,setCurrentProduct,currentUser}) {
           
           <p className="card__description">{product.description.length>50?`${product.description.substring(0,50)}...`:product.description}</p>
         </div>
-        {product!==null&&currentUser!==null&&product.user_id===currentUser.id?<button disabled> {product.quantity===0?"OUT OF STOCK":"ADD TO CART"}</button>:<button className="card__btn" onClick={handleAddToCart}>ADD TO CART</button>}
+        {product!==null&&product.quantity===0||currentUser!==null&&product.user_id===currentUser.id?<button disabled>{product.quantity===0?"OUT OF STOCK":"ADD TO CART"}</button>:<button className="card__btn" onClick={handleAddToCart}>ADD TO CART</button>}
+        {/* {currentUser!==null&&product.user_id===currentUser.id?<button disabled> {product.quantity===0?"OUT OF STOCK":"ADD TO CART"}</button>:<button className="card__btn" onClick={handleAddToCart}>ADD TO CART</button>} */}
       </div>
     )
 }

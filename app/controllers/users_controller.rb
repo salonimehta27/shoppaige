@@ -17,10 +17,16 @@ class UsersController < ApplicationController
    render json:sellers
  end
 
+ def update
+   user=User.find_by(id:session[:user_id])
+   user.update(user_params)
+   render json:user
+ end
+
  def create 
     user=User.create!(user_params)
     session[:user_id]=user.id
-    shove_cards_from_guest_to_user_account
+   #  shove_cards_from_guest_to_user_account
    #  authorize user
     render json: user, status: :created
  end
@@ -34,7 +40,7 @@ class UsersController < ApplicationController
  private 
 
  def user_params
-    params.permit(:first_name,:last_name,:email,:password,:password_confirmation)
+    params.permit(:first_name,:last_name,:username,:avatar,:email,:password,:password_confirmation)
  end
 
 end

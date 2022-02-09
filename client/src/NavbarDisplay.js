@@ -9,6 +9,7 @@ import {currentUserAdded} from "./features/signup/signinSlice"
 
 function NavbarDisplay({itemCount}) {
   const currentUser=useSelector((state=>state.currentUser.entities))
+  const cartData=useSelector((state)=>state.carts.entities)
   // console.log(currentUser.cart.id)
   const dispatch=useDispatch()
   function handleSignout(){
@@ -44,11 +45,11 @@ function NavbarDisplay({itemCount}) {
         <Navbar.Collapse className="justify-content-end">
           
         {currentUser!==null&&<Navbar.Text>
-        Hello, <a href="#login">{currentUser.first_name}</a>
+        Hello, <a href="/profile">{currentUser.first_name}</a>
         </Navbar.Text>}
        </Navbar.Collapse>
         
-      <Nav.Link href={currentUser!==null?`/carts/${currentUser.cart.id}`:null} eventKey={2} className="justify-content-end"><Badge color="secondary" badgeContent={1}><ShoppingCartIcon style={{color:"white"}} />{" "}</Badge></Nav.Link>
+      <Nav.Link href="/carts" eventKey={2} className="justify-content-end"><Badge color="secondary" badgeContent={cartData?cartData.cart_products.length:null}><ShoppingCartIcon style={{color:"white"}} />{" "}</Badge></Nav.Link>
         </Nav>
         </Navbar.Collapse>
         </Container>

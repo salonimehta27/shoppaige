@@ -51,7 +51,7 @@ class ApplicationController < ActionController::API
   def shove_cards_from_guest_to_user_account
     if session[:cart_id]
         guest_cart = Cart.find(session[:cart_id])
-        guest_cart.cart_products.each { |cart_prod| CartProduct.create(cart_id: current_shopping_cart.id, product_id: card.id)}
+        guest_cart.cart_products.each { |cart_prod| CartProduct.create(cart_id: current_shopping_cart.id, product_id: product.id)}
         guest_cart.destroy
         session[:cart_id] = nil
     end

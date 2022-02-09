@@ -11,8 +11,9 @@ const cartsSlice= createSlice({
             state.entities=action.payload
         },
         cartProductRemoved(state,action){
-            console.log(action.payload)
+            // console.log(action.payload)
             state.entities.cart_products.filter((prod)=>prod.id!==action.payload)
+            return state.entities
         },
         totalAdded(state,action){
             state.totalPrice=action.payload

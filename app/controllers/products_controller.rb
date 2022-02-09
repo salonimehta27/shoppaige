@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
- skip_before_action :authorize, only: [:index,:show,:product_by_category]
+ skip_before_action :authorize, only: [:index,:show,:product_by_category,:user_products]
     def index 
         products=Product.all
         render json: products

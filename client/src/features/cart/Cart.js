@@ -6,7 +6,7 @@ import {Container, Nav,Col,Row} from "react-bootstrap"
 import ShippingForm from './ShippingForm';
 import { cartProductRemoved, totalAdded } from './cartsSlice';
 import {useDispatch,useSelector} from "react-redux"
-import { useParams } from "react-router"
+import { useParams,useNavigate } from "react-router-dom"
 function Cart({currentUser}) {
 // const cartId=currentUser.cart.id
 const cartData=useSelector((state)=>state.carts.entities)
@@ -14,8 +14,9 @@ const totalPrice=useSelector((state)=>state.carts.totalPrice)
 console.log(totalPrice)
 console.log(cartData)
 const dispatch=useDispatch()
+const navigate=useNavigate("/")
 // console.log(totalPrice)
-  // console.log(cartData)
+  console.log(cartData)
   //cartData.cart_products.map(x=>x.product).reduce((acc,p)=>acc+=p.price,0)
 const[showItem,setShowItem]=useState(false)
 // debugger
@@ -51,18 +52,13 @@ const[showItem,setShowItem]=useState(false)
   ]
 
     const rows = [];
-    {cartData!==null&&cartData!==undefined && cartData.cart_products.map(row => {
-      // const[itemQuantity,setItemQuantity]=useState(row.item_quantity)
-       
-    //  function handleQuantityChange(e){
-    //   setItemQuantity(e.target.value)
-    //    }
-    function handleProductDelete(){
-      fetch(`/cart_products/${row.product.id}`,{
-        method:"delete"
+    {cartData!==undefined && cartData!==null? cartData.cart_products.map(row => {
+      function handleProductDelete(){
+        fetch(`/cart_products/${row.product.id}`,{
+         method:"delete"
       })
       dispatch(cartProductRemoved(row.product.id))
-    }
+      }
       return rows.push(
         {
         'img': <img src={row.images[0].image_url} alt="" className="img-fluid z-depth-0" />,
@@ -82,8 +78,8 @@ const[showItem,setShowItem]=useState(false)
         </MDBTooltip>
         }
       )
-    })};
- cartData!==null&&dispatch(totalAdded(cartData.cart_products.reduce((acc,x)=>acc+=x.product.price,0)))
+    }):<h1>Cart is Empty</h1>};
+ cartData&&dispatch(totalAdded(cartData.cart_products.reduce((acc,x)=>acc+=x.product.price,0)))
     return (
       <Container style={{marginTop:"58px"}}>
     <MDBRow className="my-2" center >

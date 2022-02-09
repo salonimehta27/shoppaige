@@ -1,5 +1,6 @@
 import React from 'react'
 import {Tab,Row,ListGroup,Col, Container,Badge} from "react-bootstrap"
+import {AiFillEdit} from "react-icons/ai"
 
 function Listings({listing}) {
     return (
@@ -12,11 +13,13 @@ function Listings({listing}) {
       <div className="ms-2 me-auto">
         <div className="fw-bold">{listing.name} ${listing.price}</div>
         {listing.description.length>50?`${listing.description.substring(0,50)}...`:listing.description}
+        
        </div>
        <Badge variant="primary" pill>
         {listing.quantity===0||listing.quantity===null?"Out of Stock":`${listing.quantity}`}
       </Badge>
   </ListGroup.Item>
+  {/* <AiFillEdit/> */}
   </ListGroup>
         {/* <Tab.Container id="list-group-tabs-example" defaultActiveKey="#link1">
         <Row>

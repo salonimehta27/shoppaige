@@ -3,6 +3,7 @@ import {Container, Form,InputGroup,FormControl,Row,Col} from "react-bootstrap"
 import Images from '../images/Images'
 import{useSelector,useDispatch} from "react-redux"
 import {useNavigate} from "react-router-dom"
+import ImagesPreview from '../images/ImagesPreview'
 import { navigate } from 'react-big-calendar/lib/utils/constants'
 
 
@@ -58,7 +59,7 @@ console.log(product)
     return (
         <Container style={{marginTop:"75px"}}>
              <Row className="justify-content-md-center">
-        <Col xs sm={7}>
+        <Col xs sm={6}>
         <div className="m-3">
            
             <Form onSubmit={handleProductAdd} size="sm">
@@ -111,7 +112,20 @@ console.log(product)
         {/* <button className="btn btn-outline-primary">Upload</button> */}
       </div>
       </Col>
+      <Col style={{marginTop:"15px",backgroundColor:"beige",borderColor:"black",borderStyle:"solid",borderWidth:"1px"}}>
+      <h1>Product Preview</h1>
+      <h4>Name: {product.name}</h4>
+      <h4>Price: ${product.price}</h4>
+      <h4>Description: {product.description}</h4>
+      <h4>Color:{product.color}</h4>
+      <h4>Quantity: {product.quantity}</h4>
+      <h4>Size: {product.size}</h4>
+      <h4>Category: {product.category_id}</h4>
+      <h4>Images:</h4>
+      <ImagesPreview/>
+      </Col>
       </Row>
+    
       </Container>
     )
 }

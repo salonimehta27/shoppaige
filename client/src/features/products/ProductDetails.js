@@ -18,7 +18,19 @@ console.log(id)
     },[])
     // console.log(product)
     // console.log(currentUser.id)
-
+    function handleAddToCart(){
+        fetch("/addtocart",{
+          method:"post",
+          headers:{
+            "content-type":"application/json"
+          },
+          body:JSON.stringify({
+            product_id:product.id,
+            item_quantity:1
+          })
+        }).then(res=>res.json())
+        .then(data=>console.log(data))
+      }
     return (
               <Container style={{marginTop:"58px"}}>
        {product!==null&&<>
@@ -38,10 +50,11 @@ console.log(id)
              {product.quantity<3?<div style={{color:"red"}}role="alert">
             only {product.quantity} left
             </div>:null}
-            {currentUser!==null&&product.user_id===currentUser.id?  <Button variant="primary" size="lg" disabled>
-           {product.quantity===0?"OUT OF STOCK":"ADD TO CART"}
-           </Button>:
-            <Button>ADD TO CART</Button>}
+            {product!==null&&product.quantity===0||currentUser!==null&&product.user_id===currentUser.id?<button disabled>{product.quantity===0?"OUT OF STOCK":"ADD TO CART"}</button>:<button className="card__btn" onClick={handleAddToCart}>ADD TO CART</button>}
+            {/* {currentUser!==null&&product.user_id===currentUser.id?  <Button variant="primary" size="lg" disabled>
+           {product.quantity===0?"OUT OF STOCK":"ADD TO CART"} */}
+           {/* </Button>:
+            <Button>ADD TO CART</Button>} */}
                </Col>
                </Row>  
             </>}

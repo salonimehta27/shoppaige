@@ -13,13 +13,16 @@ import AddProduct from './features/products/AddProduct';
 import CurrentUserListings from './features/products/CurrentUserListings';
 import Cart from './features/cart/Cart';
 import PaymentComplete from './features/cart/PaymentComplete';
+import Profile from "./features/signup/Profile"
 import Checkout from './features/cart/Checkout';
+import Footer from './Footer';
 
 
 function App() {
   const currentUser=useSelector((state)=>state.currentUser.entities)
   const cartData=useSelector((state)=>state.carts.entities)
   const dispatch=useDispatch()
+  const [errors,setErrors]=useState([])
   const[currentProduct,setCurrentProduct]=useState(null)
   useEffect(()=>{
     fetch("/me")
@@ -29,26 +32,28 @@ function App() {
       }
     })
     fetch(`/myCart`)
-    .then(res=>res.json())
-    .then(data=>{
-      dispatch(cartProductsAdded(data))
-    })
-    if(currentUser!==undefined && cartData!==null && cartData!==undefined){
-      if(cartData.ok){
-      const total=cartData.cart_products.reduce((acc,x)=>acc+=x.product.price,0)
-      dispatch(totalAdded(total))
+    .then(res=>{
+      if(res.ok){
+        res.json().then(data=>dispatch(cartProductsAdded(data)))
       }
-     }
+      else{
+        res.json().then(err=>setErrors(err))
+      }
+    })
   },[])
 
-  
+  console.log(errors)
+    if(cartData){
+    const total=cartData.cart_products.reduce((acc,x)=>acc+=x.product.price,0)
+    dispatch(totalAdded(total))
+    }
   // function handleCurrentProduct(product){
   //   setCurrentProduct(product)
   // }
  
   return (
-    <div>
-       
+    <div style={{position:"relative",minHeight:"100vh"}}>
+       <div style={{paddingBottom:"2.5rem"}}>
       <NavbarDisplay currentUser={currentUser} />
       <Router>
         <Routes>
@@ -58,12 +63,15 @@ function App() {
           <Route exact path="/products/:id" element={<ProductDetails product={currentProduct} currentUser={currentUser}/>}/>
           <Route exact path="/addProduct" element={<AddProduct currentUser={currentUser}/>}/>
           <Route exact path="/yourListings/:id" element={<CurrentUserListings currentUser={currentUser}/>}/>
-          <Route exact path="/carts/:id" element={<Cart currentUser={currentUser}/>} />
+          <Route exact path="/carts" element={<Cart/>} />
           <Route exact path="/paymentComplete" element={<PaymentComplete/>}/>
           <Route exact path="/checkout" element={<Checkout/>}/>
+          <Route exact path="/profile" element={<Profile/>}/>
           {/* <Route exact path="/cardPayment" element={<StripeContainer name={name} address={address}/>}/> */}
         </Routes>
       </Router>
+      </div>
+      {/* <Footer/> */}
     </div>
   );
 }

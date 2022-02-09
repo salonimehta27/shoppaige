@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
 
     user=User.find_by(email:params[:email])
     if user&.authenticate(params[:password])
-      session[:user_id]=user.id 
+      session[:user_id]=user.id  
       existing_cart=Cart.find_by(user_id:user.id)
       # byebug
       if(existing_cart!=nil && existing_cart.user_id==user.id)
@@ -24,7 +24,7 @@ class SessionsController < ApplicationController
 
   def destroy
     session.delete :user_id
-    # session.delete :cart_id
+    session.delete :cart_id
     head :no_content
   end
 end

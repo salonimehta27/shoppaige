@@ -27,6 +27,8 @@ $radius: 0.2rem;
 body {
 	font-family: Oxygen, sans-serif;
 	margin: 2rem;
+	min-height: 100vh;
+	height: auto;
 }
 
 .wrapper {
