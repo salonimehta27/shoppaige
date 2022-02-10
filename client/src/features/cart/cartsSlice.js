@@ -10,22 +10,20 @@ const cartsSlice= createSlice({
             state.entities=action.payload
         },
         cartProductRemoved(state,action){
-            // console.log(action.payload)
+        state.entities.cart_products.splice(state.entities.cart_products.findIndex((x)=>x.product.id===action.payload),1)
+        //or 
+        //    state.entities.cart_products=state.entities.cart_products.filter(prod=>prod.product.id!==action.payload)
+        },
+        cartProductAmount(state,action){
             // debugger
-        //    state.entities.cart_products.filter(prod=>prod.product.id!==action.payload)
-           state.entities.cart_products=state.entities.cart_products.filter(prod=>prod.product.id!==action.payload)
-        //    debugger
-        //    return newState
-            // debugger
-            // return {...state.entities}
-        //    console.log(action.payload)
-        //    const index=state.entities.cart_products.indexOf((prod)=>prod.product.id===action.payload)
-        //    debugger
-        //    return {...state,entities:state.entities.cart_products.splice(index,1)}
-          
+            state.entities.total_amount=state.entities.total_amount-(action.payload.currentProduct.product.price*action.payload.currentProduct.item_quantity)
+        },
+        cartProductItemQuantity(state,action){
+            // state.entities.total_items=
+            //total_items:cart[:total_items]-product[:item_quantity]
         }
       
     }
 })
-export const {cartProductsAdded,cartProductRemoved,totalAdded}=cartsSlice.actions 
+export const {cartProductsAdded,cartProductRemoved,cartProductAmount,cartProductItemQuantity,totalAdded}=cartsSlice.actions 
 export default cartsSlice.reducer

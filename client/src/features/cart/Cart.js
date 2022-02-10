@@ -4,13 +4,13 @@ import {MDBTable, MDBTableBody,MDBTableHead,} from 'mdbreact';
 import StripeContainer from './StripeContainer';
 import {Container, Nav,Col,Row} from "react-bootstrap"
 import ShippingForm from './ShippingForm';
-import { cartProductRemoved, totalAdded } from './cartsSlice';
+import { cartProductAmount, cartProductItemQuantity, cartProductRemoved, totalAdded } from './cartsSlice';
 import {useDispatch,useSelector} from "react-redux"
 import { useParams,useNavigate } from "react-router-dom"
 
-function Cart({currentUser}) {
+function Cart({currentUser,cartData}) {
 // const cartId=currentUser.cart.id
-const cartData=useSelector((state)=>state.carts.entities)
+// const cartData=useSelector((state)=>state.carts.entities)
 // const [total,setTotal]=useState(cartData.total_amount)
 // const totalPrice=useSelector((state)=>state.carts.totalPrice)
 // console.log(totalPrice)
@@ -52,16 +52,15 @@ const[showItem,setShowItem]=useState(false)
         field: 'button'
       }
   ]
-    var setTotal;
     const rows = [];
     {cartData? cartData.cart_products.map(row => {
-       setTotal=cartData.total_amount
       function handleProductDelete(){
-        setTotal=cartData.total_amount-(row.product.price*row.item_quantity)
         fetch(`/cart_products/${row.product.id}`,{
          method:"delete"
         })
       dispatch(cartProductRemoved(row.product.id))
+      dispatch(cartProductAmount({...cartData,["currentProduct"]:row}))
+      dispatch(cartProductItemQuantity(cartData))
       
       }
       return rows.push(
@@ -89,7 +88,7 @@ const[showItem,setShowItem]=useState(false)
     return (
      
       <Container style={{marginTop:"58px"}}>
-    {cartData===undefined||cartData===null||cartData.total_items==0?
+    {cartData===undefined||cartData===null||cartData.total_amount==0?
     <><h1 style={{marginTop:"100px"}} >Cart is empty please add a product</h1> <Nav.Link href="/">back to shopping</Nav.Link></>
     :<>
     <MDBRow className="my-2" center >
@@ -101,7 +100,7 @@ const[showItem,setShowItem]=useState(false)
           </MDBTable>
           <Row className="justify-content-md-center">
       <Col xs lg="7">
-     {cartData && <h3>Total:- ${setTotal}</h3>}
+     {cartData && <h3>Total:- ${cartData.total_amount}</h3>}
       <Nav.Link href="/checkout"><button>Checkout</button></Nav.Link> 
         </Col>
         </Row>

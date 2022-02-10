@@ -77,7 +77,7 @@ function App() {
           <Route exact path="/products/:id" element={<ProductDetails product={currentProduct} currentUser={currentUser}/>}/>
           <Route exact path="/addProduct" element={<AddProduct currentUser={currentUser}/>}/>
           <Route exact path="/yourListings/:id" element={<CurrentUserListings currentUser={currentUser}/>}/>
-          <Route exact path="/carts" element={<Cart/>} />
+          <Route exact path="/carts" element={<Cart cartData={cartData}/>} />
           <Route exact path="/paymentComplete" element={<PaymentComplete/>}/>
           {cartData&&<Route exact path="/checkout" element={<Checkout totalPrice={cartData.total_amount} name={name} email={email} setEmail={setEmail} setName={setName} address={address} handleAddressForm={handleAddressForm}/>}/>}
           {cartData&&<Route exact path="/cardPayment" element={<StripeContainer name={name} email={email} totalPrice={cartData.total_amount} address={address}/>}/>}
