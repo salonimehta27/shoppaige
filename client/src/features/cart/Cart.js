@@ -10,8 +10,8 @@ import { useParams,useNavigate } from "react-router-dom"
 function Cart({currentUser}) {
 // const cartId=currentUser.cart.id
 const cartData=useSelector((state)=>state.carts.entities)
-const totalPrice=useSelector((state)=>state.carts.totalPrice)
-console.log(totalPrice)
+// const totalPrice=useSelector((state)=>state.carts.totalPrice)
+// console.log(totalPrice)
 console.log(cartData)
 const dispatch=useDispatch()
 const navigate=useNavigate("/")
@@ -81,7 +81,9 @@ const[showItem,setShowItem]=useState(false)
     }):<h1>Cart is Empty</h1>};
  cartData&&dispatch(totalAdded(cartData.cart_products.reduce((acc,x)=>acc+=x.product.price,0)))
     return (
+     
       <Container style={{marginTop:"58px"}}>
+    {cartData!==null&&cartData.total_items!==0&&cartData.total_items!==null?<>
     <MDBRow className="my-2" center >
       <MDBCard className="w-100">
         <MDBCardBody>
@@ -91,14 +93,16 @@ const[showItem,setShowItem]=useState(false)
           </MDBTable>
           <Row className="justify-content-md-center">
       <Col xs lg="7">
-     {cartData!==null&& <h3>Total:- ${totalPrice}</h3>}
+     {cartData!==null&& <h3>Total:- ${cartData.total_amount}</h3>}
       <Nav.Link href="/checkout"><button>Checkout</button></Nav.Link> 
         </Col>
         </Row>
         </MDBCardBody>
       </MDBCard>
     </MDBRow>
+    </>:<><h1 style={{marginTop:"100px"}} >Cart is empty please add a product</h1> <Nav.Link href="/">back to shopping</Nav.Link></>}
     </Container>
+    
     );
   }
 

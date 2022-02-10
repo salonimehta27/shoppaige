@@ -12,6 +12,7 @@ class ChargesController < ApplicationController
       automatic_payment_methods: {
         enabled: true,
       },
+      receipt_email:params[:charge][:email],
       shipping:{
         name:params[:charge][:name],
         address:{

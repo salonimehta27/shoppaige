@@ -16,6 +16,7 @@ import PaymentComplete from './features/cart/PaymentComplete';
 import Profile from "./features/signup/Profile"
 import Checkout from './features/cart/Checkout';
 import Footer from './Footer';
+import StripeContainer from './features/cart/StripeContainer';
 
 
 function App() {
@@ -23,6 +24,19 @@ function App() {
   const cartData=useSelector((state)=>state.carts.entities)
   const dispatch=useDispatch()
   const [errors,setErrors]=useState([])
+  const[name,setName]=useState("")
+  const[email,setEmail]=useState("")
+  const[address,setAddress]=useState({
+          line1:"",
+          line2:"",
+          city:"",
+          postal_code:null,
+          state:"",
+          country:""
+  })
+  function handleAddressForm(e){
+    setAddress({...address,[e.target.name]:e.target.value})
+}
   const[currentProduct,setCurrentProduct]=useState(null)
   useEffect(()=>{
     fetch("/me")
@@ -65,7 +79,8 @@ function App() {
           <Route exact path="/yourListings/:id" element={<CurrentUserListings currentUser={currentUser}/>}/>
           <Route exact path="/carts" element={<Cart/>} />
           <Route exact path="/paymentComplete" element={<PaymentComplete/>}/>
-          <Route exact path="/checkout" element={<Checkout/>}/>
+          {cartData&&<Route exact path="/checkout" element={<Checkout totalPrice={cartData.total_amount} name={name} email={email} setEmail={setEmail} setName={setName} address={address} handleAddressForm={handleAddressForm}/>}/>}
+          {cartData&&<Route exact path="/cardPayment" element={<StripeContainer name={name} email={email} totalPrice={cartData.total_amount} address={address}/>}/>}
           <Route exact path="/profile" element={<Profile/>}/>
           {/* <Route exact path="/cardPayment" element={<StripeContainer name={name} address={address}/>}/> */}
         </Routes>

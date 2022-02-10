@@ -1,34 +1,36 @@
 class CartProductsController < ApplicationController
-    skip_before_action :authorize, only: [:create,:destroy]
+    skip_before_action :authorize, only: [:create,:destroy,:destroy_all]
 
 
   def create
-
      if(session[:user_id])
+       
         currentUser=User.find(session[:user_id])
-        session[:cart_id]=currentUser[:cart_id]
+        session[:cart_id]=currentUser.cart[:id]
+        # byebug
         existing_product
        if(!product_exists?)
-         add_product_to_cart=CartProduct.new(cart_id:currentUser[:cart_id],product_id:params[:product_id],item_quantity:params[:item_quantity])
+         add_product_to_cart=CartProduct.new(cart_id:session[:cart_id],product_id:params[:product_id],item_quantity:params[:item_quantity])
           if(add_product_to_cart.save)
-           find_cart=Cart.find(session[:cart_id])
-           find_product=Product.find_by(id:params[:product_id])
-           find_cart.update(total_items:find_cart[:total_items]+params[item_quantity].to_i,total_amount:find_cart[:total_amount]+find_product[:price].to_i,user_id:currentUser[:id])
+           update_cart_on_add(find_cart_by_session,find_product_by_params)
           end
        else
-        update_item_quantity existing_product
+         update_item_quantity(existing_product)
+         update_cart_on_add(find_cart_by_session,find_product_by_params)
        end
     elsif(!session[:cart_id])
       guestCart=Cart.create(total_items:0,total_amount:0)
       session[:cart_id]=guestCart[:id]
       add_product(guestCart)
+      # update_cart_on_add(guestCart,find_product_by_params)
     else
-      guestCart=Cart.find(session[:cart_id])
+      guestCart=find_cart_by_session
        if(!product_exists?)
         add_product(guestCart)
        else
         existing_product
         update_item_quantity(existing_product)
+        update_cart_on_add(guestCart,find_product_by_params)
        end
     end
       render json: add_product_to_cart, status: :created
@@ -43,19 +45,31 @@ class CartProductsController < ApplicationController
     def destroy
       existing_products
       product=existing_products.find_by(product_id:params[:id])
+      update_cart_on_delete(find_cart_by_session,product)
       product.destroy
       head :no_content
     end
 
     def destroy_all
-
+      find_cart_by_session.update(total_amount:0,total_items:0)
+      existing_products.destroy_all
+      head :no_content
     end
 
     private
 
     def cart_product_params
       params.require(:cart_product).permit(:cart_id,:product_id,:item_quantity)
+    end
 
+    def update_cart_on_add cart,product
+      # byebug
+      cart.update(total_items:cart[:total_items]+params[:item_quantity].to_i,total_amount:cart[:total_amount].to_i+product[:price].to_i)
+    end
+
+    def update_cart_on_delete cart,product
+      
+      cart.update(total_items:cart[:total_items]-product[:item_quantity],total_amount:cart[:total_amount]-(product.product[:price].to_i*product[:item_quantity]).to_i)
     end
 
     def existing_products
@@ -70,18 +84,20 @@ class CartProductsController < ApplicationController
     def update_item_quantity existing_product
       existing_product.update(item_quantity:existing_product[:item_quantity]+params[:item_quantity].to_i)
     end
+    def find_product_by_params
+      return Product.find_by(id:params[:product_id])
+    end
+    def find_cart_by_session
+      return Cart.find(session[:cart_id])
+    end
 
     def add_product guestCart
       add_product_to_cart=CartProduct.new(cart_id:guestCart[:id],
         product_id:params[:product_id],
         item_quantity:params[:item_quantity])
-        find_product=Product.find_by(id:params[:product_id])
-        # byebug
         if(add_product_to_cart.save)
-          guestCart.update(total_items:guestCart[:total_items]+params[:item_quantity].to_i,
-          total_amount:guestCart[:total_amount]+find_product[:price].to_i)
+          update_cart_on_add(guestCart,find_product_by_params)
         end
-
     end
 end
   # byebug
@@ -92,3 +108,13 @@ end
       #   if(product[:quantity]>0)
       #     product.update(quantity: (product[:quantity]-params[:item_quantity]))
       #   end
+
+         #  find_cart=find_cart_by_session
+          #  find_product=find_product_by_params
+          #  find_cart.update(total_items:find_cart[:total_items]+params[item_quantity].to_i,total_amount:find_cart[:total_amount]+find_product[:price].to_i)
+
+             # find_cart.update(total_items:find_cart[:total_items]+params[item_quantity].to_i,total_amount:find_cart[:total_amount]+existing_product[:price].to_i)
+              #   guestCart.update(total_items:guestCart[:total_items]+params[:item_quantity].to_i,
+        #   total_amount:guestCart[:total_amount]+find_product[:price].to_i)
+           # find_product=find_product_by_params
+        # byebug

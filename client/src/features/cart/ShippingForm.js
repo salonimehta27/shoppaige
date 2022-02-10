@@ -2,19 +2,22 @@ import React,{useState} from 'react';
 import {Form,Container, Nav} from "react-bootstrap"
 import StripeContainer from './StripeContainer';
 import {useSelector} from "react-redux"
+import {NavLink} from "react-router-dom"
 
-function ShippingForm({name,setName,handleAddressForm,address,showItem,totalPrice}) {
+function ShippingForm({name,email,setEmail,setName,handleAddressForm,address,showItem,totalPrice}) {
 //   console.log(address)
-// const totalPrice=useSelector((state)=>state.carts.totalPrice)
+const cartData=useSelector((state)=>state.carts.entities)
 // console.log(totalPrice)
-const[showPayment,setShowPayment]=useState(false)
+// const[showPayment,setShowPayment]=useState(false)
   return (<>
-      {showPayment===false?<>
+      {/* {showPayment===false?<> */}
        <Form>
         <Form.Group className="form-group">
         <h1>Shipping Address</h1>
           <Form.Label>Name</Form.Label>
           <Form.Control type="text" name="name" required placeholder="name" value={name} onChange={(e)=>setName(e.target.value)}/>
+          <Form.Label>Email</Form.Label>
+          <Form.Control type="email" name="email" required placeholder="email" value={email} onChange={(e)=>setEmail(e.target.value)}/>
           <Form.Label>Line1</Form.Label>
           <Form.Control type="text" name="line1" required placeholder="line1" value={address.line1} onChange={handleAddressForm}/>
           <Form.Label>Line2</Form.Label>
@@ -28,12 +31,13 @@ const[showPayment,setShowPayment]=useState(false)
           <Form.Label>Country</Form.Label>
           <Form.Control type="text" name="country" placeholder="country" value={address.country} onChange={handleAddressForm}/>
           <div className="d-grid gap-2" style={{marginTop:"5px"}}>
-        <button onClick={setShowPayment(true)}>Proceed to payment</button>
+          <NavLink to="/cardPayment"><button >Proceed to payment</button> </NavLink>
         </div>
         </Form.Group>
         </Form>   
-  </>:
-  <StripeContainer name={name} totalPrice={totalPrice} address={address}></StripeContainer>}
+  {/* </>: */}
+ 
+  {/* <StripeContainer name={name} totalPrice={totalPrice} address={address}></StripeContainer> */}
   </>)
 }
 

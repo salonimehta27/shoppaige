@@ -20,7 +20,7 @@ class ApplicationController < ActionController::API
         cart=Cart.find(session[:cart_id])
         
       else
-        cart=Cart.create
+        cart=Cart.create(total_items:0,total_amount:0)
         session[:cart_id]=cart.id
       end
     end
@@ -51,7 +51,7 @@ class ApplicationController < ActionController::API
   def shove_cards_from_guest_to_user_account
     if session[:cart_id]
         guest_cart = Cart.find(session[:cart_id])
-        guest_cart.cart_products.each { |cart_prod| CartProduct.create(cart_id: current_shopping_cart.id, product_id: product.id)}
+        guest_cart.cart_products.each { |cart_prod| CartProduct.create(cart_id: current_shopping_cart.id, product_id: cart_prod[:product_id])}
         guest_cart.destroy
         session[:cart_id] = nil
     end
