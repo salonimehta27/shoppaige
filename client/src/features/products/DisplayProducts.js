@@ -2,7 +2,7 @@ import React,{useState} from 'react'
 // import {Card,Button,Col,Row} from "react-bootstrap"
 import {useNavigate} from "react-router-dom"
 import { currentUserAdded } from '../signup/signinSlice';
-import { useSelector } from 'react-redux';
+import { useSelector,useDispatch } from 'react-redux';
 import ProductDetails from './ProductDetails'
 import "./product.scss"
 import { Container,Row,Col } from 'react-bootstrap';
@@ -10,8 +10,9 @@ import { cartProductsAdded } from '../cart/cartsSlice';
 function DisplayProducts({product,setCurrentProduct,currentUser}) {
   const cartData=useSelector((state)=>state.carts.entities)
   const totalPrice=useSelector((state)=>state.carts.totalPrice)
-  console.log(totalPrice)
-    console.log(cartData)
+  const dispatch=useDispatch()
+  // console.log(totalPrice)
+  //   console.log(cartData)
     const[errors,setErrors]=useState([])
     const navigate=useNavigate()
     function handleProductPage(){
@@ -30,7 +31,9 @@ function DisplayProducts({product,setCurrentProduct,currentUser}) {
           item_quantity:1
         })
       }).then(res=>res.json())
-      .then(data=>console.log(data))
+      .then(data=>{
+        console.log(data)
+      dispatch(cartProductsAdded(data))})
     }
     return (
     

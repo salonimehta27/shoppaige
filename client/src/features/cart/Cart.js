@@ -7,12 +7,14 @@ import ShippingForm from './ShippingForm';
 import { cartProductRemoved, totalAdded } from './cartsSlice';
 import {useDispatch,useSelector} from "react-redux"
 import { useParams,useNavigate } from "react-router-dom"
+
 function Cart({currentUser}) {
 // const cartId=currentUser.cart.id
 const cartData=useSelector((state)=>state.carts.entities)
+// const [total,setTotal]=useState(cartData.total_amount)
 // const totalPrice=useSelector((state)=>state.carts.totalPrice)
 // console.log(totalPrice)
-console.log(cartData)
+// console.log(cartData)
 const dispatch=useDispatch()
 const navigate=useNavigate("/")
 // console.log(totalPrice)
@@ -50,14 +52,17 @@ const[showItem,setShowItem]=useState(false)
         field: 'button'
       }
   ]
-
+    var setTotal;
     const rows = [];
-    {cartData!==undefined && cartData!==null? cartData.cart_products.map(row => {
+    {cartData? cartData.cart_products.map(row => {
+       setTotal=cartData.total_amount
       function handleProductDelete(){
+        setTotal=cartData.total_amount-(row.product.price*row.item_quantity)
         fetch(`/cart_products/${row.product.id}`,{
          method:"delete"
-      })
+        })
       dispatch(cartProductRemoved(row.product.id))
+      
       }
       return rows.push(
         {
@@ -79,11 +84,14 @@ const[showItem,setShowItem]=useState(false)
         }
       )
     }):<h1>Cart is Empty</h1>};
- cartData&&dispatch(totalAdded(cartData.cart_products.reduce((acc,x)=>acc+=x.product.price,0)))
+    // console.log(cartData.total_items)
+//  cartData&&dispatch(totalAdded(cartData.cart_products.reduce((acc,x)=>acc+=x.product.price,0)))
     return (
      
       <Container style={{marginTop:"58px"}}>
-    {cartData!==null&&cartData.total_items!==0&&cartData.total_items!==null?<>
+    {cartData===undefined||cartData===null||cartData.total_items==0?
+    <><h1 style={{marginTop:"100px"}} >Cart is empty please add a product</h1> <Nav.Link href="/">back to shopping</Nav.Link></>
+    :<>
     <MDBRow className="my-2" center >
       <MDBCard className="w-100">
         <MDBCardBody>
@@ -93,14 +101,14 @@ const[showItem,setShowItem]=useState(false)
           </MDBTable>
           <Row className="justify-content-md-center">
       <Col xs lg="7">
-     {cartData!==null&& <h3>Total:- ${cartData.total_amount}</h3>}
+     {cartData && <h3>Total:- ${setTotal}</h3>}
       <Nav.Link href="/checkout"><button>Checkout</button></Nav.Link> 
         </Col>
         </Row>
         </MDBCardBody>
       </MDBCard>
     </MDBRow>
-    </>:<><h1 style={{marginTop:"100px"}} >Cart is empty please add a product</h1> <Nav.Link href="/">back to shopping</Nav.Link></>}
+    </>}
     </Container>
     
     );

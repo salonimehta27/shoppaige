@@ -57,10 +57,10 @@ function App() {
   },[])
 
   console.log(errors)
-    if(cartData){
-    const total=cartData.cart_products.reduce((acc,x)=>acc+=x.product.price,0)
-    dispatch(totalAdded(total))
-    }
+    // if(cartData){
+    // const total=cartData.cart_products.reduce((acc,x)=>acc+=x.product.price,0)
+    // dispatch(totalAdded(total))
+    // }
   // function handleCurrentProduct(product){
   //   setCurrentProduct(product)
   // }
