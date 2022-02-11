@@ -1,5 +1,4 @@
 import React,{useEffect,useState} from 'react'
-import { contextSourcesMap } from 'tailwindcss/lib/jit/lib/sharedState'
 import {useSelector} from "react-redux"
 import {useParams} from "react-router-dom"
 import Listings from './Listings'

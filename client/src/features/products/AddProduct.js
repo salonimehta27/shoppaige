@@ -4,7 +4,6 @@ import Images from '../images/Images'
 import{useSelector,useDispatch} from "react-redux"
 import {useNavigate} from "react-router-dom"
 import ImagesPreview from '../images/ImagesPreview'
-import { navigate } from 'react-big-calendar/lib/utils/constants'
 
 
 function AddProduct({currentUser}) {

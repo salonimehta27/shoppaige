@@ -1,6 +1,5 @@
 import React from 'react'
 import {Navbar,Container,Nav,NavDropdown} from "react-bootstrap"
-import {useNavigate} from 'react-router-dom'
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import Badge from "@material-ui/core/Badge";
 import {useDispatch,useSelector} from "react-redux"
