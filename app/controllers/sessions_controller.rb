@@ -15,6 +15,7 @@ class SessionsController < ApplicationController
         cart=Cart.create!(total_items:0,total_amount:0,user_id:user.id)
         session[:cart_id]=cart.id
       end
+      # shove_cards_from_guest_to_user_account
       render json: user, status: :created
     else
       render json: {errors: ["Invalid email or password"]}, status: :unauthorized

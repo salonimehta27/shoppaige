@@ -33,7 +33,8 @@ class CartProductsController < ApplicationController
         update_cart_on_add(guestCart,find_product_by_params)
        end
     end
-      render json: add_product_to_cart, status: :created
+      
+      render json:find_cart_by_session , status: :created
   end
 
 

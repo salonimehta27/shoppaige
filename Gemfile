@@ -13,6 +13,7 @@ gem 'puma', '~> 5.0'
 # gem 'jbuilder', '~> 2.7'
 # Use Redis adapter to run Action Cable in production
 gem 'redis', '~> 4.0'
+gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'master'
 # Use Active Model has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 gem 'stripe', :git => 'https://github.com/stripe/stripe-ruby'

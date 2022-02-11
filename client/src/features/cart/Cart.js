@@ -86,7 +86,6 @@ const[showItem,setShowItem]=useState(false)
     // console.log(cartData.total_items)
 //  cartData&&dispatch(totalAdded(cartData.cart_products.reduce((acc,x)=>acc+=x.product.price,0)))
     return (
-     
       <Container style={{marginTop:"58px"}}>
     {cartData===undefined||cartData===null||cartData.total_amount==0?
     <><h1 style={{marginTop:"100px"}} >Cart is empty please add a product</h1> <Nav.Link href="/">back to shopping</Nav.Link></>
