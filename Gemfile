@@ -20,7 +20,7 @@ gem 'stripe', :git => 'https://github.com/stripe/stripe-ruby'
 gem "pundit", require: true
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
-gem 'aws-sdk','~>3'
+# gem 'aws-sdk','~>3'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
 
