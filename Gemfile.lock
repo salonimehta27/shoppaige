@@ -212,7 +212,7 @@ PLATFORMS
 DEPENDENCIES
   active_model_serializers (~> 0.10.12)
   bcrypt (~> 3.1.7)
-  bootsnap (>= 1.4.4)
+  bootsnap (~> 1.10, >= 1.10.3)
   byebug
   devise
   faker!
@@ -229,9 +229,6 @@ DEPENDENCIES
   spring
   stripe!
   tzinfo-data
-
-RUBY VERSION
-   ruby 2.7.4p191
 
 BUNDLED WITH
    2.2.31
