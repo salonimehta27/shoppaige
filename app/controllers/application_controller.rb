@@ -12,20 +12,20 @@ class ApplicationController < ActionController::API
     User.find_by(id: session[:user_id])
   end
  
-  def current_shopping_cart 
-    if login?
-      cart=current_user.cart
-    else 
-      if session[:cart_id]
-        cart=Cart.find(session[:cart_id])
+  # def current_shopping_cart 
+  #   if login?
+  #     cart=current_user.cart
+  #   else 
+  #     if session[:cart_id]
+  #       cart=Cart.find(session[:cart_id])
         
-      else
-        cart=Cart.create(total_items:0,total_amount:0)
-        session[:cart_id]=cart.id
-      end
-    end
+  #     else
+  #       cart=Cart.create(total_items:0,total_amount:0)
+  #       session[:cart_id]=cart.id
+  #     end
+  #   end
 
-  end
+  # end
   private 
 
   def record_not_found
@@ -48,12 +48,17 @@ class ApplicationController < ActionController::API
     render json:{errors: "user not authorized"}, status: :unauthorized
   end
 
-  def shove_cards_from_guest_to_user_account
+  def shove_cards_from_guest_to_user_account user
     if session[:cart_id]
         guest_cart = Cart.find(session[:cart_id])
-        guest_cart.cart_products.each { |cart_prod| CartProduct.create(cart_id: current_shopping_cart.id, product_id: cart_prod[:product_id])}
+        guest_cart.cart_products.each do |cart_prod| 
+          CartProduct.create(cart_id: user.cart.id, product_id: cart_prod[:product_id],item_quantity:cart_prod[:item_quantity])
+          product=Product.find(cart_prod[:product_id])
+          user.cart.update(total_amount:user.cart[:total_amount]+(cart_prod[:item_quantity]*product[:price]).to_i,total_items:user.cart[:total_items]+cart_prod[:item_quantity])
+        end  
+        guest_cart.cart_products.destroy_all
         guest_cart.destroy
-        session[:cart_id] = nil
+        session[:cart_id] = user.cart.id
     end
   end
 

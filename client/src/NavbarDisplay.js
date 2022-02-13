@@ -18,6 +18,7 @@ function NavbarDisplay({itemCount}) {
     dispatch(currentUserAdded(null))
     
   }
+  //console.log(cartData)
     return (
         <Navbar collapseOnSelect fixed="top" expand="sm" bg="dark" variant="dark">
         <Container>

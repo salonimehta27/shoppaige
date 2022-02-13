@@ -4,37 +4,34 @@ class CartProductsController < ApplicationController
 
   def create
      if(session[:user_id])
-       
         currentUser=User.find(session[:user_id])
         session[:cart_id]=currentUser.cart[:id]
-        # byebug
         existing_product
        if(!product_exists?)
-         add_product_to_cart=CartProduct.new(cart_id:session[:cart_id],product_id:params[:product_id],item_quantity:params[:item_quantity])
+          add_product_to_cart=CartProduct.new(cart_id:session[:cart_id],product_id:params[:product_id],item_quantity:params[:item_quantity])
           if(add_product_to_cart.save)
            update_cart_on_add(find_cart_by_session,find_product_by_params)
           end
        else
-         update_item_quantity(existing_product)
-         update_cart_on_add(find_cart_by_session,find_product_by_params)
+          update_item_quantity(existing_product)
+          update_cart_on_add(find_cart_by_session,find_product_by_params)
        end
     elsif(!session[:cart_id])
-      guestCart=Cart.create(total_items:0,total_amount:0)
-      session[:cart_id]=guestCart[:id]
-      add_product(guestCart)
+        guestCart=Cart.create(total_items:0,total_amount:0)
+        session[:cart_id]=guestCart[:id]
+        add_product(guestCart)
       # update_cart_on_add(guestCart,find_product_by_params)
     else
-      guestCart=find_cart_by_session
-       if(!product_exists?)
-        add_product(guestCart)
-       else
-        existing_product
-        update_item_quantity(existing_product)
-        update_cart_on_add(guestCart,find_product_by_params)
-       end
+        guestCart=find_cart_by_session
+        if(!product_exists?)
+         add_product(guestCart)
+        else
+         existing_product
+         update_item_quantity(existing_product)
+         update_cart_on_add(guestCart,find_product_by_params)
+        end
     end
-      
-      render json:find_cart_by_session , status: :created
+    render json:find_cart_by_session , status: :created
   end
 
 
@@ -53,8 +50,15 @@ class CartProductsController < ApplicationController
 
     def destroy_all
       find_cart_by_session.update(total_amount:0,total_items:0)
+      existing_products.each do |cart_product|
+        product=Product.find_by(id:cart_product[:product_id])
+        if(product[:quantity]>0)
+          product.update(quantity: (product[:quantity]-cart_product[:item_quantity]))
+        else
+          render json:{error:"Item is out of stock"}
+        end 
+      end
       existing_products.destroy_all
-      head :no_content
     end
 
     private
@@ -101,21 +105,3 @@ class CartProductsController < ApplicationController
         end
     end
 end
-  # byebug
-     
-
-      # if order.save
-      #   product=Product.find(params[:product_id])
-      #   if(product[:quantity]>0)
-      #     product.update(quantity: (product[:quantity]-params[:item_quantity]))
-      #   end
-
-         #  find_cart=find_cart_by_session
-          #  find_product=find_product_by_params
-          #  find_cart.update(total_items:find_cart[:total_items]+params[item_quantity].to_i,total_amount:find_cart[:total_amount]+find_product[:price].to_i)
-
-             # find_cart.update(total_items:find_cart[:total_items]+params[item_quantity].to_i,total_amount:find_cart[:total_amount]+existing_product[:price].to_i)
-              #   guestCart.update(total_items:guestCart[:total_items]+params[:item_quantity].to_i,
-        #   total_amount:guestCart[:total_amount]+find_product[:price].to_i)
-           # find_product=find_product_by_params
-        # byebug

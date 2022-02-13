@@ -26,7 +26,9 @@ class UsersController < ApplicationController
  def create 
     user=User.create!(user_params)
     session[:user_id]=user.id
-    shove_cards_from_guest_to_user_account
+    Cart.create!(total_items:0,total_amount:0,user_id:user.id)
+    shove_cards_from_guest_to_user_account(user)
+    session[:cart_id]=user.cart.id
    #  authorize user
     render json: user, status: :created
  end
