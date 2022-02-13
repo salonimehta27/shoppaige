@@ -8,58 +8,42 @@ class ApplicationController < ActionController::API
 
   before_action :authorize
 
-  def current_user 
+  def current_user
     User.find_by(id: session[:user_id])
   end
- 
-  # def current_shopping_cart 
-  #   if login?
-  #     cart=current_user.cart
-  #   else 
-  #     if session[:cart_id]
-  #       cart=Cart.find(session[:cart_id])
-        
-  #     else
-  #       cart=Cart.create(total_items:0,total_amount:0)
-  #       session[:cart_id]=cart.id
-  #     end
-  #   end
 
-  # end
-  private 
+  private
 
   def record_not_found
-    render json: {errors: "not found"}, status: :not_found
+    render json: { errors: "not found" }, status: :not_found
   end
 
-  def login?
-    !!@current_user
+  def record_invalid(exception)
+    render json: { errors: [exception.record.errors.full_messages] }, status: :unprocessable_entity
   end
 
-  def record_invalid  exception 
-    render json: {errors: [exception.record.errors.full_messages]}, status: :unprocessable_entity
-  end
-
-  def authorize 
-    render json:{errors:["not authorized"]}, status: :unauthorized unless session.include? :user_id
+  def authorize
+    render json: { errors: ["not authorized"] }, status: :unauthorized unless session.include? :user_id
   end
 
   def user_not_authorized
-    render json:{errors: "user not authorized"}, status: :unauthorized
+    render json: { errors: "user not authorized" }, status: :unauthorized
   end
 
-  def shove_cards_from_guest_to_user_account user
+  def shove_cards_from_guest_to_user_account(user)
     if session[:cart_id]
-        guest_cart = Cart.find(session[:cart_id])
-        guest_cart.cart_products.each do |cart_prod| 
-          CartProduct.create(cart_id: user.cart.id, product_id: cart_prod[:product_id],item_quantity:cart_prod[:item_quantity])
-          product=Product.find(cart_prod[:product_id])
-          user.cart.update(total_amount:user.cart[:total_amount]+(cart_prod[:item_quantity]*product[:price]).to_i,total_items:user.cart[:total_items]+cart_prod[:item_quantity])
-        end  
-        guest_cart.cart_products.destroy_all
-        guest_cart.destroy
-        session[:cart_id] = user.cart.id
+      guest_cart = Cart.find(session[:cart_id])
+      guest_cart.cart_products.each do |cart_prod|
+        CartProduct.create(cart_id: user.cart.id,
+                           product_id: cart_prod[:product_id],
+                           item_quantity: cart_prod[:item_quantity])
+        product = Product.find(cart_prod[:product_id])
+        user.cart.update(total_amount: user.cart[:total_amount] + (cart_prod[:item_quantity] * product[:price]).to_i,
+                         total_items: user.cart[:total_items] + cart_prod[:item_quantity])
+      end
+      guest_cart.cart_products.destroy_all
+      guest_cart.destroy
+      session[:cart_id] = user.cart.id
     end
   end
-
 end

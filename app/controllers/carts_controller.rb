@@ -1,20 +1,17 @@
 class CartsController < ApplicationController
-skip_before_action :authorize, only:[:current_cart]
- def current_cart
-    cart=Cart.find(session[:cart_id])
-    render json: cart    
- end
+  skip_before_action :authorize, only: [:current_cart]
 
+  def current_cart
+    cart = Cart.find(session[:cart_id])
+    render json: cart
+  end
 
- def create 
+  def create
+  end
 
- end
-          
- def update 
+  def update
+  end
 
- end
-
- def destroy 
-
- end
+  def destroy
+  end
 end

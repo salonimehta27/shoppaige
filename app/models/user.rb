@@ -9,15 +9,15 @@ class User < ApplicationRecord
 
   validate :must_have_a_role, on: :update
 
-  private 
-    def assign_default_role
-      self.add_role(:buyer) if self.roles.blank?
-    end
+  private
 
-    def must_have_a_role
-      unless roles.any?
-        errors.add(:roles, "must have atleast one role")
-      end
-    end
+  def assign_default_role
+    self.add_role(:buyer) if self.roles.blank?
+  end
 
+  def must_have_a_role
+    unless roles.any?
+      errors.add(:roles, "must have atleast one role")
+    end
+  end
 end
