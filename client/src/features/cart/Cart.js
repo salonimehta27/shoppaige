@@ -12,7 +12,6 @@ import {
 	cartProductAmount,
 	cartProductItemQuantity,
 	cartProductRemoved,
-	totalAdded,
 } from "./cartsSlice"
 import { Link } from "react-router-dom"
 import { useDispatch } from "react-redux"
@@ -109,7 +108,7 @@ function Cart({ currentUser, cartData }) {
 		<Container style={{ marginTop: "58px" }}>
 			{cartData === undefined ||
 			cartData === null ||
-			cartData.total_amount == 0 ? (
+			cartData.total_amount === 0 ? (
 				<>
 					<h1 style={{ marginTop: "100px" }}>
 						Cart is empty please add a product

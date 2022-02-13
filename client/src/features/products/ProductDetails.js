@@ -7,14 +7,13 @@ import { Container, Row, Col } from "react-bootstrap"
 function ProductDetails({ currentUser }) {
 	const { id } = useParams()
 	const [product, setProduct] = useState(null)
-	console.log(id)
 	useEffect(() => {
 		fetch(`/products/${id}`).then((res) => {
 			if (res.ok) {
 				res.json().then((data) => setProduct(data))
 			}
 		})
-	}, [])
+	}, [id])
 
 	function handleAddToCart() {
 		fetch("/addtocart", {

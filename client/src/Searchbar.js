@@ -1,5 +1,4 @@
 import React from "react"
-import { MDBCol } from "mdbreact"
 import { Container, Row, Col } from "react-bootstrap"
 import Filter from "./Filter"
 

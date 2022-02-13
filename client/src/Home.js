@@ -1,6 +1,5 @@
 import React, { useState } from "react"
 import Products from "./features/products/Products"
-import Filter from "./Filter"
 import Searchbar from "./Searchbar"
 
 function Home({ currentProduct, setCurrentProduct, currentUser }) {

@@ -30,7 +30,11 @@ function DisplayProducts({ product, setCurrentProduct, currentUser }) {
 	return (
 		<div className="card">
 			<div className="card__body" onClick={handleProductPage}>
-				<img className="card__image" src={product.images[0].image_url} />
+				<img
+					className="card__image"
+					src={product.images[0].image_url}
+					alt="product image"
+				/>
 				<h5 className="card__title">{product.name}</h5>
 				<p className="card__description">${product.price}</p>
 

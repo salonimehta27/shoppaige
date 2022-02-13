@@ -1,4 +1,3 @@
-import React, { useState } from "react"
 import ShippingForm from "./ShippingForm"
 import { Container, Row, Col } from "react-bootstrap"
 
@@ -10,7 +9,6 @@ function Checkout({
 	setName,
 	handleAddressForm,
 	address,
-	setAddress,
 }) {
 	return (
 		<Container style={{ marginTop: "75px" }}>

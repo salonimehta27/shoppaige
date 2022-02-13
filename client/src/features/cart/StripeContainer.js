@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react"
 import { Elements } from "@stripe/react-stripe-js"
 import { loadStripe } from "@stripe/stripe-js"
 import PaymentForm from "./PaymentForm"
-import { useSelector } from "react-redux"
 import { Container } from "react-bootstrap"
 
 const PUBLIC_KEY =

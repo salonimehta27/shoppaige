@@ -1,5 +1,5 @@
 import React from "react"
-import { Tab, Row, ListGroup, Col, Container, Badge } from "react-bootstrap"
+import { ListGroup, Container, Badge } from "react-bootstrap"
 import { AiFillEdit } from "react-icons/ai"
 
 function Listings({ listing }) {

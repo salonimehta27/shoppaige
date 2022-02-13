@@ -12,7 +12,7 @@ function CurrentUserListings() {
 		fetch(`/userProducts/${id}`)
 			.then((res) => res.json())
 			.then((data) => setUserListings(data))
-	}, [])
+	}, [id])
 
 	const listings = userListings
 		.filter((list) => list.name.toLowerCase().includes(search.toLowerCase()))
