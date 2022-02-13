@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from "react"
 import {
 	MDBRow,
 	MDBCard,
@@ -8,16 +7,15 @@ import {
 	MDBBtn,
 } from "mdb-react-ui-kit"
 import { MDBTable, MDBTableBody, MDBTableHead } from "mdbreact"
-import StripeContainer from "./StripeContainer"
 import { Container, Nav, Col, Row } from "react-bootstrap"
-import ShippingForm from "./ShippingForm"
 import {
 	cartProductAmount,
 	cartProductItemQuantity,
 	cartProductRemoved,
 	totalAdded,
 } from "./cartsSlice"
-import { useDispatch, useSelector } from "react-redux"
+import { Link } from "react-router-dom"
+import { useDispatch } from "react-redux"
 
 function Cart({ currentUser, cartData }) {
 	const dispatch = useDispatch()
@@ -65,11 +63,13 @@ function Cart({ currentUser, cartData }) {
 				}
 				return rows.push({
 					img: (
-						<img
-							src={row.images[0].image_url}
-							alt=""
-							className="img-fluid z-depth-0"
-						/>
+						<Link to={`/products/${row.product.id}`}>
+							<img
+								src={row.images[0].image_url}
+								alt=""
+								className="img-fluid z-depth-0"
+							/>
+						</Link>
 					),
 					product: [
 						<h5 className="mt-3" key={new Date().getDate + 1}>
