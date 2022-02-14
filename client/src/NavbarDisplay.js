@@ -38,7 +38,7 @@ function NavbarDisplay({ itemCount }) {
 								<NavDropdown
 									id="nav-dropdown-dark-example"
 									title="Profile"
-									menuVariant="dark"
+									menuVariant="blue"
 								>
 									<NavDropdown.Item href="/addProduct">
 										Become a seller
@@ -46,6 +46,7 @@ function NavbarDisplay({ itemCount }) {
 									<NavDropdown.Item href={`/yourListings/${currentUser.id}`}>
 										Listings
 									</NavDropdown.Item>
+									<NavDropdown.Item href="/orders">orders</NavDropdown.Item>
 								</NavDropdown>
 							</>
 						)}

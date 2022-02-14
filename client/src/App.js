@@ -17,6 +17,7 @@ import Profile from "./features/signup/Profile"
 import Checkout from "./features/cart/Checkout"
 import Footer from "./Footer"
 import StripeContainer from "./features/cart/StripeContainer"
+import Order from "./features/orders/Order"
 
 function App() {
 	const currentUser = useSelector((state) => state.currentUser.entities)
@@ -133,6 +134,7 @@ function App() {
 							/>
 						)}
 						<Route exact path="/profile" element={<Profile />} />
+						<Route exact path="/orders" element={<Order />} />
 					</Routes>
 				</Router>
 			</div>

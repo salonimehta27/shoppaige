@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :order_items
+  resources :orders
   resources :reviews
   resources :cart_products
   resources :images
@@ -15,6 +17,7 @@ Rails.application.routes.draw do
   delete "/clearCart", to: "cart_products#destroy_all"
   get "/sellers", to: "users#get_sellers"
   get "/me", to: "users#show"
+  get "/myorders", to: "orders#user_orders"
   get "/userProducts/:user_id", to: "products#user_products"
   get "/productsCategory/:category_id", to: "products#product_by_category"
   get "/myCart", to: "carts#current_cart"
