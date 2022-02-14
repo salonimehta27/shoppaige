@@ -3,7 +3,7 @@ import { Stack, Button, Form, InputGroup, FormControl } from "react-bootstrap"
 import { useDispatch } from "react-redux"
 import { productUpdated } from "./productsSlice"
 
-function EditProduct({ editProduct, setEdit }) {
+function EditProduct({ editProduct, setEdit, setProduct }) {
 	const [product, setNewProduct] = useState({
 		name: editProduct.name,
 		price: editProduct.price,
@@ -19,18 +19,18 @@ function EditProduct({ editProduct, setEdit }) {
 	console.log(product)
 	function handleUpdate() {
 		fetch(`/products/${editProduct.id}`, {
-			method: "patch",
+			method: "PATCH",
 			headers: {
 				"content-type": "application/json",
 			},
-			body: JSON.stringify({
-				product,
-			}),
+			body: JSON.stringify(product),
 		})
 			.then((res) => res.json())
 			.then((data) => {
 				dispatch(productUpdated(data))
+				setProduct(data)
 				console.log(data)
+				setEdit(false)
 			})
 	}
 	return (

@@ -78,7 +78,11 @@ function ProductDetails({ currentUser }) {
 									)}
 								</>
 							) : (
-								<EditProduct editProduct={product} setEdit={setEdit} />
+								<EditProduct
+									editProduct={product}
+									setEdit={setEdit}
+									setProduct={setProduct}
+								/>
 							)}
 						</Col>
 					</Row>
