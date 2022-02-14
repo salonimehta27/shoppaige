@@ -13,8 +13,13 @@ const productsSlice = createSlice({
 		productFiltered(state, action) {
 			state.entities = [action.payload]
 		},
-		productsUpdate(state, action) {
-			//   findProduct=  state.entities.find(product=>product.id===action.payload.id)
+		productUpdated(state, action) {
+			const index = state.entities.findIndex(
+				(product) => product.id === action.payload.id
+			)
+			const newArr = [...state.entities]
+			newArr[index] = action.payload
+			state.entities = newArr
 			//   if(findProduct){
 			//      {...state.entities, action.payload}
 			//   }
@@ -22,6 +27,6 @@ const productsSlice = createSlice({
 	},
 })
 
-export const { productAdded, productRemoved, productFiltered } =
+export const { productAdded, productRemoved, productFiltered, productUpdated } =
 	productsSlice.actions
 export default productsSlice.reducer

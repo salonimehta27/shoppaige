@@ -7,7 +7,7 @@ function OrdersList({ order }) {
 	const orderItems = order.order_items.map((item) => (
 		<OrderItems key={item.id} product={item} />
 	))
-	const timestamp = new Date(order.created_at).toLocaleTimeString()
+	const timestamp = new Date(order.created_at).toLocaleDateString()
 	return (
 		<Container style={{ textAlign: "center" }}>
 			<br></br>

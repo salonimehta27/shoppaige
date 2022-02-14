@@ -38,10 +38,7 @@ class ProductsController < ApplicationController
 
   def update
     product = Product.find_by(id: params[:id])
-    authorize user
-    if product.update(product_params)
-      current_user.add_role :seller, product
-    end
+    product.update(product_params)
     render json: product
   end
 

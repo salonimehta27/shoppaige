@@ -32,7 +32,7 @@ function NavbarDisplay({ itemCount }) {
 						) : (
 							<Nav.Link href="/signin">Signin</Nav.Link>
 						)}
-						{currentUser !== null && <Nav.Link>Sellers</Nav.Link>}
+						{/* {currentUser !== null && <Nav.Link>Sellers</Nav.Link>} */}
 						{currentUser !== null && (
 							<>
 								<NavDropdown
@@ -40,13 +40,13 @@ function NavbarDisplay({ itemCount }) {
 									title="Profile"
 									menuVariant="blue"
 								>
+									<NavDropdown.Item href="/orders">Orders</NavDropdown.Item>
 									<NavDropdown.Item href="/addProduct">
-										Become a seller
+										Upload Product
 									</NavDropdown.Item>
 									<NavDropdown.Item href={`/yourListings/${currentUser.id}`}>
 										Listings
 									</NavDropdown.Item>
-									<NavDropdown.Item href="/orders">orders</NavDropdown.Item>
 								</NavDropdown>
 							</>
 						)}
