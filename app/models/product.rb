@@ -9,5 +9,8 @@ class Product < ApplicationRecord
   has_many :reviews, dependent: :destroy
   has_many :orders, through: :order_items
   # has_many :users, through: :reviews
-
+  def owner
+    user = User.find(self.user_id)
+    UserSerializer.new(user)
+  end
 end

@@ -19,12 +19,14 @@ function ProductDetails({ currentUser }) {
 	}, [id])
 	// console.log(currentUser)
 	// debugger
-	const seller = currentUser.roles.map((role) => role.name).includes("seller")
+	const seller =
+		currentUser !== null
+			? currentUser.roles.map((role) => role.name).includes("seller")
+			: null
 
 	function handleEdit() {
 		setEdit(!edit)
 	}
-	function handleOnChange(e) {}
 	function handleAddToCart() {
 		fetch("/addtocart", {
 			method: "post",
@@ -49,8 +51,10 @@ function ProductDetails({ currentUser }) {
 						</Col>
 
 						<Col sm={4} style={{ marginTop: "50px" }}>
-							{seller && product.user_id === currentUser.id ? (
-								<AiFillEdit onClick={handleEdit} />
+							{seller !== null && product.user_id === currentUser.id ? (
+								<i style={{ color: "black" }}>
+									Edit Listing <AiFillEdit onClick={handleEdit} />
+								</i>
 							) : null}
 							{edit === false ? (
 								<>
@@ -58,13 +62,16 @@ function ProductDetails({ currentUser }) {
 									<p>Size: {product.size}</p>
 									<p>Description: {product.description}</p>
 									<p>Price: ${product.price}</p>
+									<p>Color: {product.color}</p>
 
-									{product.quantity < 3 ? (
+									{product.quantity < 5 ? (
 										<div style={{ color: "red" }} role="alert">
 											only {product.quantity} left
 										</div>
 									) : null}
-
+									<b style={{ color: "purple" }}>
+										Sold by: {product.owner.username}
+									</b>
 									{(product !== null && product.quantity === 0) ||
 									(currentUser !== null &&
 										product.user_id === currentUser.id) ? (

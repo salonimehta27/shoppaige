@@ -133,7 +133,11 @@ function App() {
 								}
 							/>
 						)}
-						<Route exact path="/profile" element={<Profile />} />
+						<Route
+							exact
+							path="/profile"
+							element={<Profile currentUser={currentUser} />}
+						/>
 						<Route exact path="/orders" element={<Order />} />
 					</Routes>
 				</Router>
