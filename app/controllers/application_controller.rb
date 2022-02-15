@@ -38,13 +38,15 @@ class ApplicationController < ActionController::API
     render json: { errors: "user not authorized" }, status: :unauthorized
   end
 
-  def shove_cards_from_guest_to_user_account(user, order_id)
+  def shove_cards_from_guest_to_user_account(user)
     if session[:cart_id]
+      order = user.orders.create
+      session[:order_id] = order.id
       guest_cart = Cart.find(session[:cart_id])
       guest_cart.cart_products.each do |cart_prod|
         CartProduct.create(cart_id: user.cart.id,
                            product_id: cart_prod[:product_id],
-                           order_id: order_id,
+                           order_id: session[:order_id],
                            item_quantity: cart_prod[:item_quantity])
         product = Product.find(cart_prod[:product_id])
         user.cart.update(total_amount: user.cart[:total_amount] + (cart_prod[:item_quantity] * product[:price]).to_i,

@@ -5,9 +5,9 @@ class SessionsController < ApplicationController
     user = User.find_by(email: params[:email])
     if user&.authenticate(params[:password])
       session[:user_id] = user.id
-      order = user.orders.create
-      session[:order_id] = order.id
-      shove_cards_from_guest_to_user_account(user, session[:order_id])
+      # order = user.orders.create
+      # session[:order_id] = order.id
+      shove_cards_from_guest_to_user_account(user)
 
       # session[:order_id] = order.id
       if (!session[:cart_id])
