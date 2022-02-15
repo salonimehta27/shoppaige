@@ -53,7 +53,11 @@ function ProductDetails({ currentUser }) {
 						<Col sm={4} style={{ marginTop: "50px" }}>
 							{seller !== null && product.user_id === currentUser.id ? (
 								<i style={{ color: "black" }}>
-									Edit Listing <AiFillEdit onClick={handleEdit} />
+									Edit Listing{" "}
+									<AiFillEdit
+										onClick={handleEdit}
+										style={{ cursor: "pointer" }}
+									/>
 								</i>
 							) : null}
 							{edit === false ? (
