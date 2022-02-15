@@ -9,7 +9,10 @@
 
 #apikeys
 .env
+app/.stripe_key.rb
+.stripe_key.rb
 # Ignore the default SQLite database.
+
 /db/*.sqlite3
 /db/*.sqlite3-*
 
