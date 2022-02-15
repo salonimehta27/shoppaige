@@ -1,6 +1,13 @@
 import React, { useState } from "react"
-import { useNavigate } from "react"
-import { Form, FormControl, Button, Stack, Row, Col } from "react-bootstrap"
+import {
+	Form,
+	FormControl,
+	Button,
+	Stack,
+	Row,
+	Col,
+	Nav,
+} from "react-bootstrap"
 
 function Editprofile({ currentUser }) {
 	const [user, setUser] = useState({
@@ -9,11 +16,13 @@ function Editprofile({ currentUser }) {
 		avatar: currentUser.avatar,
 		password_confirmation: "",
 	})
-
 	function handleChange(e) {
 		setUser({ ...user, [e.target.name]: e.target.value })
 	}
-	function handleUpdate() {}
+	function handleUpdate() {
+		// fetch(`/users/${}`)
+	}
+
 	return (
 		<Row className="justify-content-md-center">
 			<Col xs sm="7">
@@ -95,7 +104,9 @@ function Editprofile({ currentUser }) {
 						<Button variant="secondary" onClick={handleUpdate}>
 							Save changes
 						</Button>
-						<Button variant="outline-secondary">Cancel</Button>
+						<Nav.Link href="/">
+							<Button variant="outline-secondary">Cancel</Button>
+						</Nav.Link>
 					</Stack>
 				</Form>
 			</Col>

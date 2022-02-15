@@ -15,8 +15,8 @@ function Signup() {
 		bucketName: S3_BUCKET,
 		dirName: "images",
 		region: REGION,
-		accessKeyId: "AKIA5JDKYRPA5ERHEL7N",
-		secretAccessKey: "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",
+		accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY,
+		secretAccessKey: process.env.REACT_APP_AWS_SECRET_KEY,
 		s3Url: "http://shoppaige.s3-website-us-east-1.amazonaws.com",
 	}
 

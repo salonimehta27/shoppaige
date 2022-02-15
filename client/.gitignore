@@ -11,6 +11,9 @@
 # production
 /build
 
+#awskeys
+
+.env 
 # misc
 .DS_Store
 .env.local
