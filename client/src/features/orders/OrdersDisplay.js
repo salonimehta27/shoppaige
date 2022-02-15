@@ -7,7 +7,11 @@ function OrdersDisplay() {
 	const orders = useSelector((state) => state.orders.entities)
 	// console.log(orders)
 	// debugger
-	const list = orders.map((order) => (
+	// debugger
+	const newOrders = [...orders]
+	const sorted_orders = newOrders.reverse()
+	console.log(sorted_orders)
+	const list = sorted_orders.map((order) => (
 		<OrdersList key={order.id} order={order} />
 	))
 	return (

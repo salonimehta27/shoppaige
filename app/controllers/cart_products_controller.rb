@@ -8,9 +8,7 @@ class CartProductsController < ApplicationController
         add_product_to_cart = CartProduct.new(cart_id: session[:cart_id],
                                               product_id: params[:product_id],
                                               item_quantity: params[:item_quantity])
-        # byebug
         if (add_product_to_cart.save)
-          # byebug
           update_cart_on_add(find_cart_by_session, find_product_by_params)
         end
       else
@@ -54,7 +52,7 @@ class CartProductsController < ApplicationController
       if (product[:quantity] > 0)
         product.update(quantity: (product[:quantity] - cart_product[:item_quantity]))
       else
-        render json: { error: "Item is out of stock" }
+        render json: { error: ["Item is out of stock"] }
       end
     end
     existing_products.destroy_all

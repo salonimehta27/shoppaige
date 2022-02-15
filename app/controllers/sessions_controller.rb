@@ -5,11 +5,7 @@ class SessionsController < ApplicationController
     user = User.find_by(email: params[:email])
     if user&.authenticate(params[:password])
       session[:user_id] = user.id
-      # order = user.orders.create
-      # session[:order_id] = order.id
-      shove_cards_from_guest_to_user_account(user)
-
-      # session[:order_id] = order.id
+      move_cart_products_guest_to_user(user)
       if (!session[:cart_id])
         cart = Cart.find_by(user_id: user.id)
         session[:cart_id] = cart.id
@@ -23,7 +19,6 @@ class SessionsController < ApplicationController
   def destroy
     session.delete :user_id
     session.delete :cart_id
-    session.delete :order_id
     head :no_content
   end
 end

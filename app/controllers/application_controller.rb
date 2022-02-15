@@ -34,7 +34,7 @@ class ApplicationController < ActionController::API
     render json: { errors: "user not authorized" }, status: :unauthorized
   end
 
-  def shove_cards_from_guest_to_user_account(user)
+  def move_cart_products_guest_to_user(user)
     if session[:cart_id]
       guest_cart = Cart.find(session[:cart_id])
       guest_cart.cart_products.each do |cart_prod|

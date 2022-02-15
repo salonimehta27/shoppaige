@@ -3,11 +3,13 @@ import { Stack, Col, Row, Container, Accordion } from "react-bootstrap"
 import OrderItems from "./OrderItems"
 
 function OrdersList({ order }) {
-	console.log(order)
+	// console.log(order)
 	const orderItems = order.order_items.map((item) => (
 		<OrderItems key={item.id} product={item} />
 	))
+
 	const timestamp = new Date(order.created_at).toLocaleDateString()
+	// console.log(timestamp)
 	return (
 		<Container style={{ textAlign: "center" }}>
 			<br></br>
