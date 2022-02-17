@@ -5,7 +5,7 @@ it utilizes Amazon S3 for storing Images of the products and Stripe API to handl
 
 ## [Blog on AWS](https://medium.com/p/bf7e2c3d7e3e)
 
-## [Blog on Implementing Stripe]()
+## [Blog on Implementing Stripe](https://salonimehta27.medium.com/incorporating-stripe-payment-in-react-with-backend-rails-a556d0496798)
 
 # Resources
 
