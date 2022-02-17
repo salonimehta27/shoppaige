@@ -8,11 +8,7 @@ import {
 } from "mdb-react-ui-kit"
 import { MDBTable, MDBTableBody, MDBTableHead } from "mdbreact"
 import { Container, Nav, Col, Row, Alert } from "react-bootstrap"
-import {
-	cartProductAmount,
-	cartProductItemQuantity,
-	cartProductRemoved,
-} from "./cartsSlice"
+import { cartProductAmount, cartProductRemoved } from "./cartsSlice"
 import { Link } from "react-router-dom"
 import { useDispatch } from "react-redux"
 import { BsFillArrowLeftCircleFill } from "react-icons/bs"
@@ -59,7 +55,6 @@ function Cart({ currentUser, cartData }) {
 					})
 					dispatch(cartProductRemoved(row.product.id))
 					dispatch(cartProductAmount({ ...cartData, ["currentProduct"]: row }))
-					dispatch(cartProductItemQuantity(cartData))
 				}
 				return rows.push({
 					img: (

@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import { uploadFile } from "react-s3"
 import {
 	Form,
 	FormControl,
@@ -8,19 +9,51 @@ import {
 	Col,
 	Nav,
 } from "react-bootstrap"
+import { useDispatch } from "react-redux"
+import { currentUserAdded } from "./signinSlice"
 
 function Editprofile({ currentUser }) {
-	const [user, setUser] = useState({
+	const dispatch = useDispatch()
+	const S3_BUCKET = "shoppaige"
+	const REGION = "us-east-1"
+	const [avatar, setAvatar] = useState(currentUser.avatar)
+	const [password, setPassword] = useState({
 		password: "",
-		username: currentUser.username,
-		avatar: currentUser.avatar,
 		password_confirmation: "",
 	})
-	function handleChange(e) {
-		setUser({ ...user, [e.target.name]: e.target.value })
+	const [username, setUsername] = useState(currentUser.username)
+	const [user, setUser] = useState({
+		password_confirmation: "",
+	})
+	const config = {
+		bucketName: S3_BUCKET,
+		dirName: "images",
+		region: REGION,
+		accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY,
+		secretAccessKey: process.env.REACT_APP_AWS_SECRET_KEY,
+		s3Url: "http://shoppaige.s3-website-us-east-1.amazonaws.com",
 	}
+
+	function handleChange(e) {
+		if (e.target.name === "avatar") {
+			uploadFile(e.target.files[0], config)
+				.then((data) => {
+					setUser({ ...user, [e.target.name]: data.location })
+				})
+				.catch((err) => console.log(err))
+		} else {
+			setUser({ ...user, [e.target.name]: e.target.value })
+		}
+	}
+	console.log(user)
 	function handleUpdate() {
-		// fetch(`/users/${}`)
+		fetch(`/users/${currentUser.id}`, {
+			method: "PATCH",
+			headers: {
+				"content-type": "application/json",
+			},
+			body: JSON.stringify(user),
+		}).then((data) => dispatch(currentUserAdded(data)))
 	}
 
 	return (

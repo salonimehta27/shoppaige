@@ -16,8 +16,6 @@ const cartsSlice = createSlice({
 				),
 				1
 			)
-			//or
-			//    state.entities.cart_products=state.entities.cart_products.filter(prod=>prod.product.id!==action.payload)
 		},
 		cartProductAmount(state, action) {
 			state.entities.total_amount =
@@ -25,14 +23,12 @@ const cartsSlice = createSlice({
 				action.payload.currentProduct.product.price *
 					action.payload.currentProduct.item_quantity
 		},
-		cartProductItemQuantity(state, action) {},
 	},
 })
 export const {
 	cartProductsAdded,
 	cartProductRemoved,
 	cartProductAmount,
-	cartProductItemQuantity,
 	totalAdded,
 } = cartsSlice.actions
 export default cartsSlice.reducer

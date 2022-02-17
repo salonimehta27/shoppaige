@@ -57,7 +57,7 @@ function AddProduct({ currentUser }) {
 			setProduct({ ...product, [e.target.name]: e.target.value })
 		}
 	}
-	console.log(product)
+	// console.log(product)
 	return (
 		<Container style={{ marginTop: "75px" }}>
 			<Row className="justify-content-md-center">
@@ -168,22 +168,31 @@ function AddProduct({ currentUser }) {
 				<Col
 					style={{
 						marginTop: "15px",
-						backgroundColor: "beige",
-						borderColor: "black",
-						borderStyle: "solid",
-						borderWidth: "1px",
 					}}
 				>
-					<h1>Product Preview</h1>
-					<h4>Name: {product.name}</h4>
-					<h4>Price: ${product.price}</h4>
-					<h4>Description: {product.description}</h4>
-					<h4>Color:{product.color}</h4>
-					<h4>Quantity: {product.quantity}</h4>
-					<h4>Size: {product.size}</h4>
-					<h4>Category: {product.category_id}</h4>
-					<h4>Images:</h4>
-					<ImagesPreview />
+					<div className="card">
+						<div className="card__body">
+							<h1>Product Preview</h1>
+							<h5 className="card__title">{product.name}</h5>
+							<p className="card__description">Price: ${product.price}</p>
+
+							<p className="card__description">
+								Description:{" "}
+								{product.description.length > 50
+									? `${product.description.substring(0, 50)}...`
+									: product.description}
+							</p>
+							<p className="card__description">Color: {product.color}</p>
+
+							<p className="card__description">Quantity: {product.quantity}</p>
+							<p className="card__description">Size: {product.size}</p>
+							<p className="card__description">
+								Category: {product.category_id}
+							</p>
+							<p className="card__description">Images: </p>
+							<ImagesPreview />
+						</div>
+					</div>
 				</Col>
 			</Row>
 		</Container>

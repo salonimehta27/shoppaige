@@ -21,9 +21,6 @@ const productsSlice = createSlice({
 			const newArr = [...state.entities]
 			newArr[index] = action.payload
 			state.entities = newArr
-			//   if(findProduct){
-			//      {...state.entities, action.payload}
-			//   }
 		},
 	},
 })

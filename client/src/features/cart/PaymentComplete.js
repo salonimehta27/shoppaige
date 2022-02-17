@@ -1,11 +1,15 @@
 import React from "react"
-import { Container, Nav } from "react-bootstrap"
+import { Container, Nav, Alert } from "react-bootstrap"
+import { BsFillArrowRightCircleFill } from "react-icons/bs"
 
 function PaymentComplete() {
 	return (
 		<Container style={{ marginTop: "75px" }}>
-			<h1>Thank you. Your order has been processed</h1>
-			<Nav.Link href="/">Continue Shopping</Nav.Link>
+			<Alert variant="primary">Thank you. Your order has been processed</Alert>
+			<Nav.Link href="/">
+				<BsFillArrowRightCircleFill />
+				Continue Shopping
+			</Nav.Link>
 		</Container>
 	)
 }
