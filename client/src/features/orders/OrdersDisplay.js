@@ -1,6 +1,7 @@
 import React from "react"
 import { useSelector } from "react-redux"
 import OrdersList from "./OrdersList"
+import { Alert } from "react-bootstrap"
 
 function OrdersDisplay() {
 	const orders = useSelector((state) => state.orders.entities)
@@ -11,8 +12,14 @@ function OrdersDisplay() {
 	))
 	return (
 		<div>
-			<h2>My Orders</h2>
-			{orders && list}
+			<h2 style={{ textAlign: "center" }}>My Orders</h2>
+			{orders && orders.length !== 0 ? (
+				list
+			) : (
+				<Alert key="idx" variant="primary">
+					No orders yet
+				</Alert>
+			)}
 		</div>
 	)
 }

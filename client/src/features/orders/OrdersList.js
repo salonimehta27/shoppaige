@@ -1,5 +1,5 @@
 import React from "react"
-import { Stack, Col, Row, Container, Accordion } from "react-bootstrap"
+import { Stack, Col, Row, Container, Accordion, Table } from "react-bootstrap"
 import OrderItems from "./OrderItems"
 
 function OrdersList({ order }) {
@@ -13,9 +13,15 @@ function OrdersList({ order }) {
 	return (
 		<Container style={{ textAlign: "center" }}>
 			<br></br>
-			<h4>Order number #{order.id}</h4>
-			<p>Total Paid ${order.total_amount}</p>
-			<p>Order date: {timestamp} </p>
+			<Table striped bordered hover>
+				<thead>
+					<tr>
+						<th>Order number #{order.id}</th>
+						<th>Total Paid ${order.total_amount}</th>
+						<th>Order date: {timestamp}</th>
+					</tr>
+				</thead>
+			</Table>
 			<Accordion>
 				<Accordion.Item eventKey="0">
 					<Accordion.Header>see items</Accordion.Header>

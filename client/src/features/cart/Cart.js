@@ -7,7 +7,7 @@ import {
 	MDBBtn,
 } from "mdb-react-ui-kit"
 import { MDBTable, MDBTableBody, MDBTableHead } from "mdbreact"
-import { Container, Nav, Col, Row } from "react-bootstrap"
+import { Container, Nav, Col, Row, Alert } from "react-bootstrap"
 import {
 	cartProductAmount,
 	cartProductItemQuantity,
@@ -15,6 +15,7 @@ import {
 } from "./cartsSlice"
 import { Link } from "react-router-dom"
 import { useDispatch } from "react-redux"
+import { BsFillArrowLeftCircleFill } from "react-icons/bs"
 
 function Cart({ currentUser, cartData }) {
 	const dispatch = useDispatch()
@@ -111,9 +112,14 @@ function Cart({ currentUser, cartData }) {
 			cartData.total_amount === 0 ? (
 				<>
 					<h1 style={{ marginTop: "100px" }}>
-						Cart is empty please add a product
+						<Alert key="idx" variant="primary">
+							Cart is empty, Please add a product
+						</Alert>
 					</h1>{" "}
-					<Nav.Link href="/">back to shopping</Nav.Link>
+					<Nav.Link href="/">
+						<BsFillArrowLeftCircleFill />
+						back to shopping
+					</Nav.Link>
 				</>
 			) : (
 				<>

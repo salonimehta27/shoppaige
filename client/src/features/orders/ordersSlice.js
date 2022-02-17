@@ -5,6 +5,7 @@ const ordersSlice = createSlice({
 	initialState: {
 		entities: [],
 		errors: [],
+		sold: [],
 	},
 	reducers: {
 		ordersAdded(state, action) {
@@ -13,7 +14,10 @@ const ordersSlice = createSlice({
 		errorsAdded(state, action) {
 			state.errors = action.payload
 		},
+		ordersSold(state, action) {
+			state.sold = action.payload
+		},
 	},
 })
-export const { ordersAdded, errorsAdded } = ordersSlice.actions
+export const { ordersAdded, errorsAdded, ordersSold } = ordersSlice.actions
 export default ordersSlice.reducer
