@@ -34,6 +34,14 @@ class UsersController < ApplicationController
     render json: user, status: :created
   end
 
+  def get_orders
+    orderItems = current_user.order_items
+    orders = orderItems.map do |order_item|
+      order_item.order
+    end.uniq
+    render json: orders
+  end
+
   def destroy
     user = User.find(params[:user_id])
     user.delete

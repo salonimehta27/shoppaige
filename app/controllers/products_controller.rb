@@ -44,7 +44,6 @@ class ProductsController < ApplicationController
 
   def destroy
     product = Product.find_by(id: params[:id])
-    authorize user
     product.delete
     head :no_content
   end

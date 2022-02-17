@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   resources :categories
   get "sessions/create"
   get "sessions/destroy"
+  get "/getOrders", to: "users#get_orders"
   resources :products
   resources :users
   post "/payment", to: "charges#create"

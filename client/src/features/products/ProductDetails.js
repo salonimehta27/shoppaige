@@ -1,15 +1,19 @@
 import React, { useEffect } from "react"
-import { useParams } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom"
 import { useState } from "react"
 import ImageSlider from "../images/ImageSlider"
 import { Container, Row, Col } from "react-bootstrap"
-import { AiFillEdit } from "react-icons/ai"
+import { AiFillEdit, AiFillDelete } from "react-icons/ai"
 import EditProduct from "./EditProduct"
+import { useDispatch } from "react-redux"
+import { productRemoved } from "./productsSlice"
 
 function ProductDetails({ currentUser }) {
 	const { id } = useParams()
 	const [product, setProduct] = useState(null)
 	const [edit, setEdit] = useState(false)
+	const dispatch = useDispatch()
+	const navigate = useNavigate()
 	useEffect(() => {
 		fetch(`/products/${id}`).then((res) => {
 			if (res.ok) {
@@ -27,6 +31,14 @@ function ProductDetails({ currentUser }) {
 	function handleEdit() {
 		setEdit(!edit)
 	}
+
+	function handleDelete(id) {
+		fetch(`/products/${id}`, {
+			method: "delete",
+		})
+		dispatch(productRemoved(id))
+		navigate("/")
+	}
 	function handleAddToCart() {
 		fetch("/addtocart", {
 			method: "post",
@@ -39,7 +51,7 @@ function ProductDetails({ currentUser }) {
 			}),
 		})
 			.then((res) => res.json())
-			.then((data) => console.log(data))
+			.then((data) => {})
 	}
 	return (
 		<Container style={{ marginTop: "58px" }}>
@@ -57,6 +69,10 @@ function ProductDetails({ currentUser }) {
 									<AiFillEdit
 										onClick={handleEdit}
 										style={{ cursor: "pointer" }}
+									/>
+									<AiFillDelete
+										style={{ cursor: "pointer" }}
+										onClick={() => handleDelete(product.id)}
 									/>
 								</i>
 							) : null}
@@ -89,11 +105,13 @@ function ProductDetails({ currentUser }) {
 									)}
 								</>
 							) : (
-								<EditProduct
-									editProduct={product}
-									setEdit={setEdit}
-									setProduct={setProduct}
-								/>
+								<>
+									<EditProduct
+										editProduct={product}
+										setEdit={setEdit}
+										setProduct={setProduct}
+									/>
+								</>
 							)}
 						</Col>
 					</Row>

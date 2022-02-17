@@ -7,6 +7,7 @@ import { currentUserAdded } from "./features/signup/signinSlice"
 import { cartProductsAdded } from "./features/cart/cartsSlice"
 import Signin from "./features/signup/Signin"
 import NavbarDisplay from "./NavbarDisplay"
+import Sold from "./features/orders/Sold"
 import Signup from "./features/signup/Signup"
 import ProductDetails from "./features/products/ProductDetails"
 import AddProduct from "./features/products/AddProduct"
@@ -139,6 +140,7 @@ function App() {
 							element={<Profile currentUser={currentUser} />}
 						/>
 						<Route exact path="/orders" element={<Order />} />
+						<Route exact path="/sold" element={<Sold />} />
 					</Routes>
 				</Router>
 			</div>

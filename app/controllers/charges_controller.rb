@@ -1,6 +1,5 @@
 require "stripe"
 require_relative "../.stripe_key.rb"
-# require 'securerandom'
 
 class ChargesController < ApplicationController
   skip_before_action :authorize, only: :create

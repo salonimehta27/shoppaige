@@ -19,6 +19,7 @@ function NavbarDisplay({ itemCount }) {
 		navigate("/signin")
 	}
 	//console.log(cartData)
+
 	return (
 		<Navbar collapseOnSelect fixed="top" expand="sm" bg="dark" variant="dark">
 			<Container>
@@ -44,9 +45,18 @@ function NavbarDisplay({ itemCount }) {
 									<NavDropdown.Item href="/addProduct">
 										Upload Product
 									</NavDropdown.Item>
-									<NavDropdown.Item href={`/yourListings/${currentUser.id}`}>
-										Listings
-									</NavDropdown.Item>
+									{currentUser.roles.find((role) => role.name == "seller") ? (
+										<>
+											<NavDropdown.Item
+												href={`/yourListings/${currentUser.id}`}
+											>
+												Listings
+											</NavDropdown.Item>
+											<NavDropdown.Item href="/sold">
+												Buyer Orders
+											</NavDropdown.Item>
+										</>
+									) : null}
 								</NavDropdown>
 							</>
 						)}

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import Listings from "./Listings"
-import { Container, Stack } from "react-bootstrap"
+import { Container, Stack, Spinner } from "react-bootstrap"
 
 function CurrentUserListings() {
 	const { id } = useParams()
@@ -35,7 +35,10 @@ function CurrentUserListings() {
 					{listings.length !== 0 ? (
 						listings
 					) : (
-						<h2>Please upload a product to become a seller</h2>
+						<h2>
+							<Spinner animation="border" />
+							Loading..
+						</h2>
 					)}
 				</div>
 			</Stack>

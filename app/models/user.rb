@@ -7,6 +7,7 @@ class User < ApplicationRecord
   # has_many :products, through: :reviews
   has_one :cart, dependent: :destroy
   has_many :orders
+  has_many :order_items, through: :products
   validate :must_have_a_role, on: :update
 
   private

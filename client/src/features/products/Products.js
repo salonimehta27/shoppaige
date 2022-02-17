@@ -29,6 +29,7 @@ function Products({ currentProduct, setCurrentProduct, currentUser, search }) {
 								)
 								.map((p) => (
 									<DisplayProduct
+										key={product.id}
 										product={p}
 										currentUser={currentUser}
 										setCurrentProduct={setCurrentProduct}

@@ -8,7 +8,8 @@ const productsSlice = createSlice({
 			state.entities.push(action.payload)
 		},
 		productRemoved(state, action) {
-			state.entities.filter((product) => product.id !== action.payload)
+			const index = state.entities.findIndex((prod) => prod === action.payload)
+			state.entities.splice(index, 1)
 		},
 		productFiltered(state, action) {
 			state.entities = [action.payload]
