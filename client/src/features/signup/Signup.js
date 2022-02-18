@@ -1,5 +1,5 @@
 import React from "react"
-import { Container, Form, Row, Col } from "react-bootstrap"
+import { Container, Form, Row, Col, Alert } from "react-bootstrap"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { useDispatch } from "react-redux"
@@ -80,17 +80,19 @@ function Signup() {
 			setSignupForm({ ...signupForm, [e.target.name]: e.target.value })
 		}
 	}
-	console.log(signupForm)
 	return (
 		<Container style={{ marginTop: "75px" }}>
 			<Row className="justify-content-md-center">
+				{errors.map((err) => (
+					<Alert variant="danger">{err}</Alert>
+				))}
 				<Col xs sm={7}>
 					<Form
 						onSubmit={handleSubmit}
 						style={{ marginBottom: "0px!important" }}
 					>
 						<h3>Signup</h3>
-						<Form.Group className="form-group">
+						<Form.Group>
 							<Form.Label>First name</Form.Label>
 							<Form.Control
 								type="text"
@@ -102,7 +104,7 @@ function Signup() {
 							/>
 						</Form.Group>
 
-						<Form.Group className="form-group">
+						<Form.Group>
 							<Form.Label>Last name</Form.Label>
 							<Form.Control
 								type="text"
@@ -113,7 +115,7 @@ function Signup() {
 								onChange={handleChange}
 							/>
 						</Form.Group>
-						<Form.Group className="form-group">
+						<Form.Group>
 							<Form.Label>Username</Form.Label>
 							<Form.Control
 								type="text"
@@ -125,7 +127,7 @@ function Signup() {
 							/>
 						</Form.Group>
 
-						<Form.Group className="form-group">
+						<Form.Group>
 							<Form.Label>Email</Form.Label>
 							<Form.Control
 								type="email"
@@ -137,7 +139,7 @@ function Signup() {
 							/>
 						</Form.Group>
 
-						<Form.Group controlId="formFileMultiple" className="mb-3">
+						<Form.Group controlId="formFileMultiple">
 							<Form.Label>Profile Picture</Form.Label>
 							<Form.Control
 								type="file"
@@ -146,7 +148,7 @@ function Signup() {
 								onChange={handleChange}
 							/>
 						</Form.Group>
-						<Form.Group className="form-group">
+						<Form.Group>
 							<Form.Label>Password</Form.Label>
 							<Form.Control
 								type="password"
@@ -157,7 +159,7 @@ function Signup() {
 								onChange={handleChange}
 							/>
 						</Form.Group>
-						<Form.Group className="form-group">
+						<Form.Group>
 							<Form.Label>Confirm password</Form.Label>
 							<Form.Control
 								type="password"

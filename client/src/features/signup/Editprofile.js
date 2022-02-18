@@ -32,6 +32,7 @@ function Editprofile({ currentUser }) {
 	}
 
 	function handleChange(e) {
+		console.log(e.target.name)
 		if (e.target.name === "avatar") {
 			uploadFile(e.target.files[0], config)
 				.then((data) => {
@@ -56,7 +57,10 @@ function Editprofile({ currentUser }) {
 			body: JSON.stringify(obj),
 		})
 			.then((res) => res.json())
-			.then((data) => dispatch(currentUserAdded(data)))
+			.then((data) => {
+				console.log(data)
+				dispatch(currentUserAdded(data))
+			})
 	}
 
 	return (

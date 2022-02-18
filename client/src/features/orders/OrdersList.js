@@ -1,5 +1,5 @@
 import React from "react"
-import { Stack, Col, Row, Container, Accordion, Table } from "react-bootstrap"
+import { Row, Container, Accordion, Table } from "react-bootstrap"
 import OrderItems from "./OrderItems"
 
 function OrdersList({ order }) {

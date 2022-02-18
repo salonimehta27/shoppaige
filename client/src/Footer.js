@@ -7,7 +7,7 @@ const Footer = () => {
 			color="blue"
 			className="font-small pt-4 mt-4"
 			style={{
-				backgroundColor: "beige",
+				backgroundColor: "black",
 				position: "absolute",
 				bottom: "0",
 				width: "100%",

@@ -6,9 +6,11 @@ class Product < ApplicationRecord
   accepts_nested_attributes_for :images
   has_many :cart_products
   has_many :order_items
-  has_many :reviews, dependent: :destroy
+  has_many :reviews
   has_many :orders, through: :order_items
   # has_many :users, through: :reviews
+  # validates :name, :description, :price, :category_id, :color, :quantity, presence: :true
+
   def owner
     user = User.find(self.user_id)
     UserSerializer.new(user)

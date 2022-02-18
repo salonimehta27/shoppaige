@@ -1,6 +1,5 @@
 import React from "react"
 import { ListGroup, Container, Badge } from "react-bootstrap"
-import { AiFillEdit } from "react-icons/ai"
 
 function Listings({ listing }) {
 	return (
@@ -25,7 +24,6 @@ function Listings({ listing }) {
 							: `${listing.quantity}`}
 					</Badge>
 				</ListGroup.Item>
-				{/* <AiFillEdit/> */}
 			</ListGroup>
 		</Container>
 	)

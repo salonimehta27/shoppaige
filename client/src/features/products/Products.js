@@ -1,13 +1,15 @@
-import React from "react"
+import React, { useMemo } from "react"
 import DisplayProduct from "./DisplayProducts"
 import { productAdded } from "./productsSlice"
 import { useSelector, useDispatch } from "react-redux"
 import { useEffect, useState } from "react"
+import Pagination from "../pagination/Pagination"
 
-function Products({ currentProduct, setCurrentProduct, currentUser, search }) {
+function Products({ setCurrentProduct, currentUser, search }) {
+	const products = useSelector((state) => state.products.entities)
 	const dispatch = useDispatch()
 	const [errors, setErrors] = useState([])
-	const products = useSelector((state) => state.products.entities)
+
 	useEffect(() => {
 		fetch("/products").then((r) => {
 			if (r.ok) {

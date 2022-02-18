@@ -22,6 +22,7 @@ import Order from "./features/orders/Order"
 
 function App() {
 	const currentUser = useSelector((state) => state.currentUser.entities)
+
 	const cartData = useSelector((state) => state.carts.entities)
 	const dispatch = useDispatch()
 	const [errors, setErrors] = useState([])
@@ -35,6 +36,7 @@ function App() {
 		state: "",
 		country: "",
 	})
+
 	function handleAddressForm(e) {
 		setAddress({ ...address, [e.target.name]: e.target.value })
 	}
@@ -144,7 +146,7 @@ function App() {
 					</Routes>
 				</Router>
 			</div>
-			{/* <Footer/> */}
+			{/* <Footer /> */}
 		</div>
 	)
 }

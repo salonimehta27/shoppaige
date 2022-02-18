@@ -1,4 +1,4 @@
-import { Form, Container, Row, Col } from "react-bootstrap"
+import { Form, Container, Row, Col, Alert } from "react-bootstrap"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { useDispatch } from "react-redux"
@@ -34,10 +34,13 @@ function Signin() {
 			}
 		})
 	}
-	console.log(errors)
+	// console.log(errors)
 	return (
 		<Container style={{ marginTop: "75px" }}>
 			<Row className="justify-content-md-center">
+				{errors.map((err) => (
+					<Alert variant="danger">{err}</Alert>
+				))}
 				<Col xs sm={7}>
 					<Form onSubmit={handleSignin}>
 						<h3>Signin</h3>

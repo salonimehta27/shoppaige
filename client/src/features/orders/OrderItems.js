@@ -1,12 +1,5 @@
 import React from "react"
-import {
-	Nav,
-	Stack,
-	Col,
-	Card,
-	ListGroup,
-	ListGroupItem,
-} from "react-bootstrap"
+import { Col, Card, ListGroup, ListGroupItem } from "react-bootstrap"
 
 function OrderItems({ product }) {
 	return (
@@ -27,7 +20,6 @@ function OrderItems({ product }) {
 						<ListGroupItem>Size: {product.product.size}</ListGroupItem>
 					</ListGroup>
 				</Card.Body>
-				<Card.Footer className="text-muted">2 days ago</Card.Footer>
 			</Card>
 		</Col>
 	)

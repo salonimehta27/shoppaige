@@ -1,12 +1,21 @@
 import React, { useEffect } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 import { useState } from "react"
+import Reviews from "./Reviews"
 import ImageSlider from "../images/ImageSlider"
-import { Container, Row, Col } from "react-bootstrap"
+import {
+	Container,
+	Row,
+	Col,
+	FloatingLabel,
+	Form,
+	Button,
+} from "react-bootstrap"
 import { AiFillEdit, AiFillDelete } from "react-icons/ai"
 import EditProduct from "./EditProduct"
 import { useDispatch } from "react-redux"
-import { productRemoved } from "./productsSlice"
+import { cartProductsAdded } from "../cart/cartsSlice"
+import { productRemoved, reviewsAdded } from "./productsSlice"
 
 function ProductDetails({ currentUser }) {
 	const { id } = useParams()
@@ -14,6 +23,8 @@ function ProductDetails({ currentUser }) {
 	const [edit, setEdit] = useState(false)
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
+	const [review, setReview] = useState("")
+	const [reviews, setReviews] = useState([])
 	useEffect(() => {
 		fetch(`/products/${id}`).then((res) => {
 			if (res.ok) {
@@ -39,6 +50,28 @@ function ProductDetails({ currentUser }) {
 		dispatch(productRemoved(id))
 		navigate("/")
 	}
+
+	function handleReviewSubmit() {
+		fetch("/reviews", {
+			method: "post",
+			headers: {
+				"content-type": "application/json",
+			},
+			body: JSON.stringify({
+				user_id: currentUser.id,
+				product_id: product.id,
+				review_body: review,
+			}),
+		})
+			.then((res) => res.json())
+			.then((data) => {
+				setReview("")
+				// console.log(reviews)
+				// console.log(data)
+				setReviews(reviews.map((x) => [...x, data]))
+			})
+	}
+
 	function handleAddToCart() {
 		fetch("/addtocart", {
 			method: "post",
@@ -51,7 +84,7 @@ function ProductDetails({ currentUser }) {
 			}),
 		})
 			.then((res) => res.json())
-			.then((data) => {})
+			.then((data) => dispatch(cartProductsAdded(data)))
 	}
 	return (
 		<Container style={{ marginTop: "58px" }}>
@@ -114,6 +147,37 @@ function ProductDetails({ currentUser }) {
 								</>
 							)}
 						</Col>
+					</Row>
+
+					<Row style={{ marginTop: "25px" }}>
+						<Col>
+							{currentUser !== null && (
+								<FloatingLabel
+									controlId="floatingTextarea"
+									label="Comments"
+									className="mb-3"
+								>
+									<Form.Control
+										as="textarea"
+										placeholder="Leave a comment here"
+										value={review}
+										onChange={(e) => setReview(e.target.value)}
+									/>
+									<Button variant="secondary" onClick={handleReviewSubmit}>
+										Submit
+									</Button>
+								</FloatingLabel>
+							)}
+						</Col>
+					</Row>
+					<Row>
+						{currentUser !== null && (
+							<Reviews
+								productId={product.id}
+								reviews={reviews}
+								setReviews={setReviews}
+							></Reviews>
+						)}
 					</Row>
 				</>
 			)}

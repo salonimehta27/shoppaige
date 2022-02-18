@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import { currentUserAdded } from "./features/signup/signinSlice"
 
-function NavbarDisplay({ itemCount }) {
+function NavbarDisplay() {
 	const currentUser = useSelector((state) => state.currentUser.entities)
 	const cartData = useSelector((state) => state.carts.entities)
 	const navigate = useNavigate()
@@ -43,7 +43,8 @@ function NavbarDisplay({ itemCount }) {
 									<NavDropdown.Item href="/addProduct">
 										Upload Product
 									</NavDropdown.Item>
-									{currentUser.roles.find((role) => role.name == "seller") ? (
+
+									{currentUser.roles.find((role) => role.name == "seller") && (
 										<>
 											<NavDropdown.Item
 												href={`/yourListings/${currentUser.id}`}
@@ -54,7 +55,7 @@ function NavbarDisplay({ itemCount }) {
 												Buyer Orders
 											</NavDropdown.Item>
 										</>
-									) : null}
+									)}
 								</NavDropdown>
 							</>
 						)}
@@ -63,17 +64,21 @@ function NavbarDisplay({ itemCount }) {
 						<Navbar.Collapse className="justify-content-end">
 							{currentUser !== null && (
 								<>
-									<Navbar.Text>
-										Hello, <a href="/profile">{currentUser.first_name} </a>
-									</Navbar.Text>
 									<img
-										src={currentUser.avatar}
+										src={
+											currentUser.avatar === null
+												? "http://www.mountainheavensella.com/wp-content/uploads/2018/12/default-user.png"
+												: currentUser.avatar
+										}
 										width="30"
 										height="30"
-										style={{ borderRadius: "50%" }}
+										style={{ borderRadius: "50%", marginRight: "5px" }}
 										className="d-inline-block align-top"
 										alt="avatar"
 									/>
+									<Navbar.Text>
+										Hello, <a href="/profile">{currentUser.first_name} </a>
+									</Navbar.Text>
 								</>
 							)}
 						</Navbar.Collapse>
