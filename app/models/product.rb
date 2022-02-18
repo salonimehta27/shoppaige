@@ -8,8 +8,7 @@ class Product < ApplicationRecord
   has_many :order_items
   has_many :reviews
   has_many :orders, through: :order_items
-  # has_many :users, through: :reviews
-  # validates :name, :description, :price, :category_id, :color, :quantity, presence: :true
+  validates :name, :description, :price, :category_id, :color, :quantity, presence: true, on: :create
 
   def owner
     user = User.find(self.user_id)

@@ -142,3 +142,11 @@ end
 // }
 
 // export default PaymentForm;
+
+  def must_have_a_role
+    unless roles.any?
+      errors.add(:roles, "must have atleast one role")
+    end
+  end
+
+   # validate :must_have_a_role, on: :update
