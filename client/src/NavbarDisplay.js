@@ -18,7 +18,6 @@ function NavbarDisplay({ itemCount }) {
 		dispatch(currentUserAdded(null))
 		navigate("/signin")
 	}
-	//console.log(cartData)
 
 	return (
 		<Navbar collapseOnSelect fixed="top" expand="sm" bg="dark" variant="dark">
@@ -33,7 +32,6 @@ function NavbarDisplay({ itemCount }) {
 						) : (
 							<Nav.Link href="/signin">Signin</Nav.Link>
 						)}
-						{/* {currentUser !== null && <Nav.Link>Sellers</Nav.Link>} */}
 						{currentUser !== null && (
 							<>
 								<NavDropdown
@@ -64,9 +62,19 @@ function NavbarDisplay({ itemCount }) {
 					<Nav>
 						<Navbar.Collapse className="justify-content-end">
 							{currentUser !== null && (
-								<Navbar.Text>
-									Hello, <a href="/profile">{currentUser.first_name}</a>
-								</Navbar.Text>
+								<>
+									<Navbar.Text>
+										Hello, <a href="/profile">{currentUser.first_name} </a>
+									</Navbar.Text>
+									<img
+										src={currentUser.avatar}
+										width="30"
+										height="30"
+										style={{ borderRadius: "50%" }}
+										className="d-inline-block align-top"
+										alt="avatar"
+									/>
+								</>
 							)}
 						</Navbar.Collapse>
 

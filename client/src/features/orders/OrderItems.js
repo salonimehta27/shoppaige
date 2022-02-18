@@ -21,7 +21,7 @@ function OrderItems({ product }) {
 						style={{ height: "100px", width: "200px" }}
 					/>
 					<ListGroup className="list-group-flush">
-						<ListGroupItem>Quantity: {product.product.quantity}</ListGroupItem>
+						<ListGroupItem>Quantity: {product.item_quantity}</ListGroupItem>
 						<ListGroupItem>Price: ${product.product.price}</ListGroupItem>
 						<ListGroupItem>Color: {product.product.color}</ListGroupItem>
 						<ListGroupItem>Size: {product.product.size}</ListGroupItem>

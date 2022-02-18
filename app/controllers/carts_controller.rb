@@ -5,13 +5,4 @@ class CartsController < ApplicationController
     cart = Cart.find(session[:cart_id])
     render json: cart
   end
-
-  def create
-  end
-
-  def update
-  end
-
-  def destroy
-  end
 end

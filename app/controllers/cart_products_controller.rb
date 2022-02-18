@@ -75,15 +75,15 @@ class CartProductsController < ApplicationController
   end
 
   def existing_products
-    return CartProduct.where(cart_id: session[:cart_id])
+    CartProduct.where(cart_id: session[:cart_id])
   end
 
   def existing_product
-    return existing_products.find_by(product_id: params[:product_id])
+    existing_products.find_by(product_id: params[:product_id])
   end
 
   def product_exists?
-    return existing_products.any? { |prod| prod[:product_id] == params[:product_id] }
+    existing_products.any? { |prod| prod[:product_id] == params[:product_id] }
   end
 
   def update_item_quantity(existing_product)
@@ -91,11 +91,11 @@ class CartProductsController < ApplicationController
   end
 
   def find_product_by_params
-    return Product.find_by(id: params[:product_id])
+    Product.find_by(id: params[:product_id])
   end
 
   def find_cart_by_session
-    return Cart.find(session[:cart_id])
+    Cart.find(session[:cart_id])
   end
 
   def add_product(guestCart)

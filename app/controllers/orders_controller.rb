@@ -6,9 +6,6 @@ class OrdersController < ApplicationController
     render json: orders
   end
 
-  def show
-  end
-
   def user_orders
     orders = Order.where(user_id: session[:user_id])
     render json: orders
