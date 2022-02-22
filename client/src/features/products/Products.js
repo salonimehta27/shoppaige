@@ -19,13 +19,16 @@ function Products({ setCurrentProduct, currentUser, search }) {
 			}
 		})
 	}, [])
+	console.log(products)
 	return (
 		<div className="wrapper">
 			{products !== null &&
 				products.map((product) => {
+					// debugger
 					return (
 						<>
 							{product
+								.filter((p) => p.active_listing === true)
 								.filter((prod) =>
 									prod.name.toLowerCase().includes(search.toLowerCase())
 								)

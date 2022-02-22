@@ -2,8 +2,8 @@ class User < ApplicationRecord
   after_create :assign_default_role
   rolify
   has_secure_password
-  has_many :products
-  has_many :reviews
+  has_many :products, dependent: :destroy
+  has_many :reviews, dependent: :destroy
   has_one :cart, dependent: :destroy
   has_many :orders
   has_many :order_items, through: :products

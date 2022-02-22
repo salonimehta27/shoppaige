@@ -18,6 +18,7 @@ function AddProduct({ currentUser }) {
 		price: null,
 		description: "",
 		color: "",
+		active_listing: true,
 		quantity: null,
 		size: "",
 		category_id: null,

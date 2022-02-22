@@ -15,7 +15,8 @@ import { AiFillEdit, AiFillDelete } from "react-icons/ai"
 import EditProduct from "./EditProduct"
 import { useDispatch } from "react-redux"
 import { cartProductsAdded } from "../cart/cartsSlice"
-import { productRemoved, reviewsAdded } from "./productsSlice"
+import { productAdded, productRemoved, reviewsAdded } from "./productsSlice"
+import { blue } from "tailwindcss/colors"
 
 function ProductDetails({ currentUser }) {
 	const { id } = useParams()
@@ -23,6 +24,7 @@ function ProductDetails({ currentUser }) {
 	const [edit, setEdit] = useState(false)
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
+	const [active, setActive] = useState(true)
 	const [review, setReview] = useState("")
 	const [reviews, setReviews] = useState([])
 	useEffect(() => {
@@ -43,13 +45,13 @@ function ProductDetails({ currentUser }) {
 		setEdit(!edit)
 	}
 
-	function handleDelete(id) {
-		fetch(`/products/${id}`, {
-			method: "delete",
-		})
-		dispatch(productRemoved(id))
-		navigate("/")
-	}
+	// function handleDelete(id) {
+	// 	fetch(`/products/${id}`, {
+	// 		method: "delete",
+	// 	})
+	// 	dispatch(productRemoved(id))
+	// 	navigate("/")
+	// }
 
 	function handleReviewSubmit() {
 		fetch("/reviews", {
@@ -70,6 +72,23 @@ function ProductDetails({ currentUser }) {
 				// console.log(data)
 				setReviews(reviews.map((x) => [...x, data]))
 			})
+	}
+	function handleDeactivateListing() {
+		fetch(`/products/${product.id}`, {
+			method: "PATCH",
+			headers: {
+				"content-type": "application/json",
+			},
+			body: JSON.stringify({ active_listing: false }),
+		})
+			.then((res) => res.json())
+			.then((data) => {
+				console.log(data)
+				dispatch(productRemoved(data.id))
+			})
+		setActive(false)
+		// navigate("/")
+		// setProductActive(false)
 	}
 
 	function handleAddToCart() {
@@ -103,10 +122,19 @@ function ProductDetails({ currentUser }) {
 										onClick={handleEdit}
 										style={{ cursor: "pointer" }}
 									/>
-									<AiFillDelete
+									or
+									<p
+										style={{ color: "blue", cursor: "pointer" }}
+										onClick={handleDeactivateListing}
+									>
+										{active && product.active_listing
+											? "Deactivate Listing"
+											: "Deactivated"}
+									</p>
+									{/* <AiFillDelete
 										style={{ cursor: "pointer" }}
 										onClick={() => handleDelete(product.id)}
-									/>
+									/> */}
 								</i>
 							) : null}
 							{edit === false ? (

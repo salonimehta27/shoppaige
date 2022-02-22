@@ -37,6 +37,7 @@ class ProductsController < ApplicationController
   end
 
   def update
+    # byebug
     product = Product.find_by(id: params[:id])
     product.update(product_params)
     render json: product
@@ -51,7 +52,7 @@ class ProductsController < ApplicationController
   private
 
   def product_params
-    params.require(:product).permit(:name, :price, :description, :color, :category_id, :size, :quantity, :user_id,
+    params.require(:product).permit(:name, :price, :active_listing, :description, :color, :category_id, :size, :quantity, :user_id,
                                     images: [:image_url, :product_id])
   end
 end
