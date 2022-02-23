@@ -16,7 +16,6 @@ import EditProduct from "./EditProduct"
 import { useDispatch } from "react-redux"
 import { cartProductsAdded } from "../cart/cartsSlice"
 import { productAdded, productRemoved, reviewsAdded } from "./productsSlice"
-import { blue } from "tailwindcss/colors"
 
 function ProductDetails({ currentUser }) {
 	const { id } = useParams()
