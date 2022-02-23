@@ -11,7 +11,7 @@ import {
 	Form,
 	Button,
 } from "react-bootstrap"
-import { AiFillEdit, AiFillDelete } from "react-icons/ai"
+import { AiFillEdit } from "react-icons/ai"
 import EditProduct from "./EditProduct"
 import { useDispatch } from "react-redux"
 import { cartProductsAdded } from "../cart/cartsSlice"
@@ -22,7 +22,6 @@ function ProductDetails({ currentUser }) {
 	const [product, setProduct] = useState(null)
 	const [edit, setEdit] = useState(false)
 	const dispatch = useDispatch()
-	const navigate = useNavigate()
 	const [active, setActive] = useState(true)
 	const [review, setReview] = useState("")
 	const [reviews, setReviews] = useState([])
@@ -33,8 +32,7 @@ function ProductDetails({ currentUser }) {
 			}
 		})
 	}, [id])
-	// console.log(currentUser)
-	// debugger
+
 	const seller =
 		currentUser !== null
 			? currentUser.roles.map((role) => role.name).includes("seller")
@@ -67,8 +65,6 @@ function ProductDetails({ currentUser }) {
 			.then((res) => res.json())
 			.then((data) => {
 				setReview("")
-				// console.log(reviews)
-				// console.log(data)
 				setReviews(reviews.map((x) => [...x, data]))
 			})
 	}
@@ -86,8 +82,6 @@ function ProductDetails({ currentUser }) {
 				dispatch(productRemoved(data.id))
 			})
 		setActive(false)
-		// navigate("/")
-		// setProductActive(false)
 	}
 
 	function handleAddToCart() {
