@@ -7,7 +7,9 @@ it utilizes Amazon S3 for storing Images of the products and Stripe API to handl
 
 ## [Blog on Implementing Stripe](https://salonimehta27.medium.com/incorporating-stripe-payment-in-react-with-backend-rails-a556d0496798)
 
-## [Demo](https://youtu.be/r3ordPsXe9M)
+## [Demo](https://youtu.be/BKM_MMSvadU)
+
+### [Frontend Code](https://github.com/salonimehta27/shoppaige/tree/main/client)
 
 # Resources
 
