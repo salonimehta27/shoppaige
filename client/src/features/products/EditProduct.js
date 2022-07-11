@@ -16,7 +16,7 @@ function EditProduct({ editProduct, setEdit, setProduct }) {
 	function handleChange(e) {
 		setNewProduct({ ...product, [e.target.name]: e.target.value })
 	}
-	// console.log(product)
+
 	function handleUpdate() {
 		fetch(`/products/${editProduct.id}`, {
 			method: "PATCH",
@@ -29,7 +29,6 @@ function EditProduct({ editProduct, setEdit, setProduct }) {
 			.then((data) => {
 				dispatch(productUpdated(data))
 				setProduct(data)
-				console.log(data)
 				setEdit(false)
 			})
 	}

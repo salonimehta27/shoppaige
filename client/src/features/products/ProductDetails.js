@@ -69,19 +69,20 @@ function ProductDetails({ currentUser }) {
 			})
 	}
 	function handleDeactivateListing() {
+		setActive(!active)
 		fetch(`/products/${product.id}`, {
 			method: "PATCH",
 			headers: {
 				"content-type": "application/json",
 			},
-			body: JSON.stringify({ active_listing: false }),
+			body: JSON.stringify({ active_listing: active }),
 		})
 			.then((res) => res.json())
 			.then((data) => {
 				console.log(data)
 				dispatch(productRemoved(data.id))
 			})
-		setActive(false)
+		//setActive(false)
 	}
 
 	function handleAddToCart() {
@@ -122,7 +123,7 @@ function ProductDetails({ currentUser }) {
 									>
 										{active && product.active_listing
 											? "Deactivate Listing"
-											: "Deactivated"}
+											: "Activate Listing"}
 									</p>
 									{/* <AiFillDelete
 										style={{ cursor: "pointer" }}
